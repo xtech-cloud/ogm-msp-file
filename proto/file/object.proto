@@ -1,0 +1,88 @@
+syntax = "proto3";
+
+import "proto/file/shared.proto";
+
+package file;
+
+// 存储对象
+service Object
+{
+    // 上传一个对象
+    rpc Upload(stream ObjectUploadRequest) returns (BlankResponse) {}
+    // 下载一个对象
+    rpc Download(ObjectDownloadRequest) returns (stream ObjectDownloadResponse) {}
+    // 链接一个外部对象
+    rpc Link(ObjectLinkRequest) returns (BlankResponse) {}
+    // 获取一个对象信息
+    rpc Get(ObjectGetRequest) returns (ObjectGetResponse) {}
+    // 删除一个对象
+    rpc Remove(ObjectRemoveRequest) returns (BlankResponse) {}
+    // 列举一个存储桶中的所有对象
+    rpc List(ObjectListRequest) returns (ObjectListResponse) {}
+}
+
+// 上传对象的请求
+message ObjectUploadRequest
+{
+    string bucket = 1;   // 存储桶
+    string filepath = 2; // 文件路径
+    bytes data = 3;      // 数据
+}
+
+// 下载对象的请求
+message ObjectDownloadRequest
+{
+    string bucket = 1;   // 存储桶
+    string filepath = 2; // 文件路径
+}
+
+// 下载对象的回复
+message ObjectDownloadResponse
+{
+    Status status = 1; // 状态
+    bytes data = 2;    // 数据
+}
+
+// 链接对象的请求
+message ObjectLinkRequest
+{
+    string bucket = 1;   // 存储桶
+    string filepath = 2; // 文件路径
+    string url = 3;      // 地址
+}
+
+// 获取对象的请求
+message ObjectGetRequest
+{
+    string bucket = 1;   // 存储桶
+    string filepath = 2; // 文件路径
+}
+
+// 获取对象的回复
+message ObjectGetResponse
+{
+    Status status = 1;       // 状态
+    ObjectEntity entity = 2; // 实体
+}
+
+// 删除对象的请求
+message ObjectRemoveRequest
+{
+    string bucket = 1;   // 存储桶
+    string filepath = 2; // 文件路径
+}
+
+// 列举对象的请求
+message ObjectListRequest
+{
+    uint64 offset = 1; // 偏移值
+    uint64 count = 2;  // 数量
+}
+
+// 列举对象的回复
+message ObjectListResponse
+{
+    Status status = 1;                // 状态
+    uint64 total = 2;                 // 总数
+    repeated ObjectEntity entity = 3; // 实体列表
+}

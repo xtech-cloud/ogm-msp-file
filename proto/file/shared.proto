@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package file;
+
+// 状态
+message Status
+{
+    int32 code = 1;     // 状态码
+    string message = 2; // 状态信息
+}
+
+// 空白请求
+message BlankRequest
+{
+}
+
+// 空白回复
+message BlankResponse
+{
+    Status status = 1; // 状态
+}
+
+// 存储桶实体
+message BucketEntity
+{
+    string name = 1;         // 名称
+    string domain = 2;       // 域名
+    string accessKey = 3;    // 访问Key
+    string accessSecret = 4; // 访问Secret
+    uint64 totalSize = 5;    // 空间总容量, 单位byte
+    uint64 freeSize = 6;     // 空间可用容量, 单位byte
+}
+
+// 对象实体
+message ObjectEntity
+{
+    string path = 1; // 存储路径
+    string name = 2; // 存储文件名
+    string md5 = 3;  // MD5值
+    uint64 size = 4; // 文件大小
+    string url = 5;  // 地址
+}
