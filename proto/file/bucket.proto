@@ -9,12 +9,14 @@ service Bucket
 {
     // 创建一个存储桶
     rpc Make(BucketMakeRequest) returns (BlankResponse) {}
-    // 列举所有存储桶
-    rpc List(BlankRequest) returns (BucketListResponse) {}
+    // 列举存储桶
+    rpc List(BucketListRequest) returns (BucketListResponse) {}
     // 删除一个存储桶
     rpc Remove(BucketRemoveRequest) returns (BlankResponse) {}
     // 获取一个存储桶信息
     rpc Get(BucketGetRequest) returns (BucketGetResponse) {}
+    // 更新一个存储桶信息
+    rpc Update(BucketUpdateRequest) returns (BlankResponse) {}
 }
 
 // 创建存储桶的请求
@@ -26,11 +28,19 @@ message BucketMakeRequest
     string accessSecret = 4; // 访问secret
 }
 
-// 列举所有存储桶的回复
+// 列举存储桶的回复
+message BucketListRequest
+{
+    int64 offset = 1; // 偏移值
+    int64 count = 2;  // 数量
+}
+
+// 列举存储桶的回复
 message BucketListResponse
 {
     Status status = 1;                // 状态
-    repeated BucketEntity entity = 2; // 实体列表
+    int64 total = 2;                  // 总数
+    repeated BucketEntity entity = 3; // 实体列表
 }
 
 // 删除存储桶的请求
@@ -50,4 +60,13 @@ message BucketGetResponse
 {
     Status status = 1;       // 状态
     BucketEntity entity = 2; // 实体
+}
+
+// 更新存储桶的请求
+message BucketUpdateRequest
+{
+    string name = 1;         // 名称
+    string domain = 2;       // 存储桶所在的域名，默认为local
+    string accessKey = 3;    // 访问key
+    string accessSecret = 4; // 访问secret
 }

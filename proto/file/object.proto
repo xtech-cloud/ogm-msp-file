@@ -27,6 +27,7 @@ message ObjectUploadRequest
     string bucket = 1;   // 存储桶
     string filepath = 2; // 文件路径
     bytes data = 3;      // 数据
+    bool overwrite = 4;  // 是否覆盖已有对象
 }
 
 // 下载对象的请求
@@ -49,6 +50,7 @@ message ObjectLinkRequest
     string bucket = 1;   // 存储桶
     string filepath = 2; // 文件路径
     string url = 3;      // 地址
+    bool overwrite = 4;  // 是否覆盖已有对象
 }
 
 // 获取对象的请求
