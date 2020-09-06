@@ -7,14 +7,18 @@ package file;
 // 存储对象
 service Object
 {
-    // 打开一个对象的存储通道
-    rpc Open(ObjectOpenRequest) returns (ObjectOpenResponse) {}
+    // 准备一个对象的元数据
+    rpc Prepare(ObjectPrepareRequest) returns (ObjectPrepareResponse) {}
+    // 写入一个对象的元数据
+    rpc Flush(ObjectFlushRequest) returns (BlankResponse) {}
+    /*
     // 上传一个对象
     rpc Upload(stream ObjectUploadRequest) returns (BlankResponse) {}
     // 下载一个对象
     rpc Download(ObjectDownloadRequest) returns (stream ObjectDownloadResponse) {}
     // 链接一个外部对象
     rpc Link(ObjectLinkRequest) returns (BlankResponse) {}
+    */
     // 获取一个对象信息
     rpc Get(ObjectGetRequest) returns (ObjectGetResponse) {}
     // 删除一个对象
@@ -23,21 +27,32 @@ service Object
     rpc List(ObjectListRequest) returns (ObjectListResponse) {}
 }
 
-// 打开对象的存储通道的请求
-message ObjectOpenRequest
+// 准备对象元数据的请求
+message ObjectPrepareRequest
 {
     string bucket = 1; // 存储桶
     string md5 = 2;    // 对象MD5值
+    uint64 size = 3;   // 对象大小
 }
 
-// 打开对象的存储通道的回复
-message ObjectOpenResponse
+// 准备对象的回复
+message ObjectPrepareResponse
 {
     Status status = 1;      // 状态
-    string address = 2;     // 存储地址
-    string accessToken = 3; // 访问令牌
+    Engine engine = 2;      // 存储引擎
+    string address = 3;     // 存储地址
+    string accessToken = 4; // 访问令牌
 }
 
+// 写入对象元数据的请求
+message ObjectFlushRequest
+{
+    string bucket = 1; // 存储桶
+    string md5 = 2;    // 对象MD5值
+    string path = 3;   // 对象存储的路径
+}
+
+/*
 // 上传对象的请求
 message ObjectUploadRequest
 {
@@ -69,6 +84,7 @@ message ObjectLinkRequest
     string url = 3;      // 地址
     bool overwrite = 4;  // 是否覆盖已有对象
 }
+*/
 
 // 获取对象的请求
 message ObjectGetRequest
