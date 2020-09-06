@@ -8,7 +8,7 @@ package file;
 service Object
 {
     // 打开一个对象的存储通道
-    rpc Open(ObjectOpenRequest) returns (BlankResponse) {}
+    rpc Open(ObjectOpenRequest) returns (ObjectOpenResponse) {}
     // 上传一个对象
     rpc Upload(stream ObjectUploadRequest) returns (BlankResponse) {}
     // 下载一个对象

@@ -35,7 +35,7 @@ var _ server.Option
 
 type ObjectService interface {
 	// 打开一个对象的存储通道
-	Open(ctx context.Context, in *ObjectOpenRequest, opts ...client.CallOption) (*BlankResponse, error)
+	Open(ctx context.Context, in *ObjectOpenRequest, opts ...client.CallOption) (*ObjectOpenResponse, error)
 	// 上传一个对象
 	Upload(ctx context.Context, opts ...client.CallOption) (Object_UploadService, error)
 	// 下载一个对象
@@ -62,9 +62,9 @@ func NewObjectService(name string, c client.Client) ObjectService {
 	}
 }
 
-func (c *objectService) Open(ctx context.Context, in *ObjectOpenRequest, opts ...client.CallOption) (*BlankResponse, error) {
+func (c *objectService) Open(ctx context.Context, in *ObjectOpenRequest, opts ...client.CallOption) (*ObjectOpenResponse, error) {
 	req := c.c.NewRequest(c.name, "Object.Open", in)
-	out := new(BlankResponse)
+	out := new(ObjectOpenResponse)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
 		return nil, err
@@ -206,7 +206,7 @@ func (c *objectService) List(ctx context.Context, in *ObjectListRequest, opts ..
 
 type ObjectHandler interface {
 	// 打开一个对象的存储通道
-	Open(context.Context, *ObjectOpenRequest, *BlankResponse) error
+	Open(context.Context, *ObjectOpenRequest, *ObjectOpenResponse) error
 	// 上传一个对象
 	Upload(context.Context, Object_UploadStream) error
 	// 下载一个对象
@@ -223,7 +223,7 @@ type ObjectHandler interface {
 
 func RegisterObjectHandler(s server.Server, hdlr ObjectHandler, opts ...server.HandlerOption) error {
 	type object interface {
-		Open(ctx context.Context, in *ObjectOpenRequest, out *BlankResponse) error
+		Open(ctx context.Context, in *ObjectOpenRequest, out *ObjectOpenResponse) error
 		Upload(ctx context.Context, stream server.Stream) error
 		Download(ctx context.Context, stream server.Stream) error
 		Link(ctx context.Context, in *ObjectLinkRequest, out *BlankResponse) error
@@ -242,7 +242,7 @@ type objectHandler struct {
 	ObjectHandler
 }
 
-func (h *objectHandler) Open(ctx context.Context, in *ObjectOpenRequest, out *BlankResponse) error {
+func (h *objectHandler) Open(ctx context.Context, in *ObjectOpenRequest, out *ObjectOpenResponse) error {
 	return h.ObjectHandler.Open(ctx, in, out)
 }
 
