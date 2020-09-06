@@ -46,8 +46,9 @@ message BucketEntity
 // 对象实体
 message ObjectEntity
 {
-    string filepath = 1; // 文件路径
-    string url = 2;      // 地址
-    uint64 size = 3;     // 文件大小
-    string md5 = 4;      // MD5值
+    string uuid = 1;     // 唯一ID
+    string filepath = 2; // 文件路径
+    string url = 3;      // 地址
+    uint64 size = 4;     // 文件大小
+    string md5 = 5;      // MD5值
 }

@@ -53,13 +53,13 @@ message BucketListResponse
 // 删除存储桶的请求
 message BucketRemoveRequest
 {
-    string name = 1; // 名称
+    string uuid = 1; // uuid
 }
 
 // 获取存储桶信息的请求
 message BucketGetRequest
 {
-    string name = 1; // 名称
+    string uuid = 1; // uuid
 }
 
 // 获取存储桶信息的回复
@@ -72,7 +72,7 @@ message BucketGetResponse
 // 更新存储桶引擎的请求
 message BucketUpdateEngineRequest
 {
-    string name = 1;         // 名称
+    string uuid = 1;         // uuid
     Engine engine = 2;       // 存储引擎
     string address = 3;      // 存储引擎的地址
     string scope = 4;        // 存储引擎的作用范围
@@ -83,12 +83,12 @@ message BucketUpdateEngineRequest
 // 更新存储桶的容量的请求
 message BucketUpdateCapacityRequest
 {
-    string name = 1;     // 名称
+    string uuid = 1;     // uuid
     uint64 capacity = 2; // 容量，单位byte
 }
 
 // 重置存储桶的访问令牌
 message BucketResetTokenRequest
 {
-    string name = 1; // 名称
+    string uuid = 1; // uuid
 }
