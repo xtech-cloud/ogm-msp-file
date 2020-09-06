@@ -21,8 +21,6 @@ service Bucket
     rpc UpdateCapacity(BucketUpdateCapacityRequest) returns (BlankResponse) {}
     // 重置一个存储桶的访问令牌
     rpc ResetToken(BucketResetTokenRequest) returns (BlankResponse) {}
-    // 获取一个存储桶的凭证
-    rpc Auth(BucketAuthRequest) returns (BucketAuthResponse) {}
 }
 
 // 创建存储桶的请求
@@ -87,20 +85,6 @@ message BucketUpdateCapacityRequest
 {
     string name = 1;     // 名称
     uint64 capacity = 2; // 容量，单位byte
-}
-
-// 获取存储桶的凭证的请求
-message BucketAuthRequest
-{
-    string name = 1;  // 名称
-    string token = 2; // 访问令牌
-}
-
-// 获取存储桶的凭证的回复
-message BucketAuthResponse
-{
-    Status status = 1;      // 状态
-    string accessToken = 2; // 存储引擎的访问令牌
 }
 
 // 重置存储桶的访问令牌

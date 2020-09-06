@@ -34,6 +34,8 @@ var _ server.Option
 // Client API for Object service
 
 type ObjectService interface {
+	// 打开一个对象的存储通道
+	Open(ctx context.Context, in *ObjectOpenRequest, opts ...client.CallOption) (*BlankResponse, error)
 	// 上传一个对象
 	Upload(ctx context.Context, opts ...client.CallOption) (Object_UploadService, error)
 	// 下载一个对象
@@ -58,6 +60,16 @@ func NewObjectService(name string, c client.Client) ObjectService {
 		c:    c,
 		name: name,
 	}
+}
+
+func (c *objectService) Open(ctx context.Context, in *ObjectOpenRequest, opts ...client.CallOption) (*BlankResponse, error) {
+	req := c.c.NewRequest(c.name, "Object.Open", in)
+	out := new(BlankResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *objectService) Upload(ctx context.Context, opts ...client.CallOption) (Object_UploadService, error) {
@@ -193,6 +205,8 @@ func (c *objectService) List(ctx context.Context, in *ObjectListRequest, opts ..
 // Server API for Object service
 
 type ObjectHandler interface {
+	// 打开一个对象的存储通道
+	Open(context.Context, *ObjectOpenRequest, *BlankResponse) error
 	// 上传一个对象
 	Upload(context.Context, Object_UploadStream) error
 	// 下载一个对象
@@ -209,6 +223,7 @@ type ObjectHandler interface {
 
 func RegisterObjectHandler(s server.Server, hdlr ObjectHandler, opts ...server.HandlerOption) error {
 	type object interface {
+		Open(ctx context.Context, in *ObjectOpenRequest, out *BlankResponse) error
 		Upload(ctx context.Context, stream server.Stream) error
 		Download(ctx context.Context, stream server.Stream) error
 		Link(ctx context.Context, in *ObjectLinkRequest, out *BlankResponse) error
@@ -225,6 +240,10 @@ func RegisterObjectHandler(s server.Server, hdlr ObjectHandler, opts ...server.H
 
 type objectHandler struct {
 	ObjectHandler
+}
+
+func (h *objectHandler) Open(ctx context.Context, in *ObjectOpenRequest, out *BlankResponse) error {
+	return h.ObjectHandler.Open(ctx, in, out)
 }
 
 func (h *objectHandler) Upload(ctx context.Context, stream server.Stream) error {

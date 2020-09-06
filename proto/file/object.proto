@@ -7,6 +7,8 @@ package file;
 // 存储对象
 service Object
 {
+    // 打开一个对象的存储通道
+    rpc Open(ObjectOpenRequest) returns (BlankResponse) {}
     // 上传一个对象
     rpc Upload(stream ObjectUploadRequest) returns (BlankResponse) {}
     // 下载一个对象
@@ -19,6 +21,21 @@ service Object
     rpc Remove(ObjectRemoveRequest) returns (BlankResponse) {}
     // 列举一个存储桶中的所有对象
     rpc List(ObjectListRequest) returns (ObjectListResponse) {}
+}
+
+// 打开对象的存储通道的请求
+message ObjectOpenRequest
+{
+    string bucket = 1; // 存储桶
+    string md5 = 2;    // 对象MD5值
+}
+
+// 打开对象的存储通道的回复
+message ObjectOpenResponse
+{
+    Status status = 1;      // 状态
+    string address = 2;     // 存储地址
+    string accessToken = 3; // 访问令牌
 }
 
 // 上传对象的请求

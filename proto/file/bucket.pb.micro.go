@@ -48,8 +48,6 @@ type BucketService interface {
 	UpdateCapacity(ctx context.Context, in *BucketUpdateCapacityRequest, opts ...client.CallOption) (*BlankResponse, error)
 	// 重置一个存储桶的访问令牌
 	ResetToken(ctx context.Context, in *BucketResetTokenRequest, opts ...client.CallOption) (*BlankResponse, error)
-	// 获取一个存储桶的凭证
-	Auth(ctx context.Context, in *BucketAuthRequest, opts ...client.CallOption) (*BucketAuthResponse, error)
 }
 
 type bucketService struct {
@@ -134,16 +132,6 @@ func (c *bucketService) ResetToken(ctx context.Context, in *BucketResetTokenRequ
 	return out, nil
 }
 
-func (c *bucketService) Auth(ctx context.Context, in *BucketAuthRequest, opts ...client.CallOption) (*BucketAuthResponse, error) {
-	req := c.c.NewRequest(c.name, "Bucket.Auth", in)
-	out := new(BucketAuthResponse)
-	err := c.c.Call(ctx, req, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // Server API for Bucket service
 
 type BucketHandler interface {
@@ -161,8 +149,6 @@ type BucketHandler interface {
 	UpdateCapacity(context.Context, *BucketUpdateCapacityRequest, *BlankResponse) error
 	// 重置一个存储桶的访问令牌
 	ResetToken(context.Context, *BucketResetTokenRequest, *BlankResponse) error
-	// 获取一个存储桶的凭证
-	Auth(context.Context, *BucketAuthRequest, *BucketAuthResponse) error
 }
 
 func RegisterBucketHandler(s server.Server, hdlr BucketHandler, opts ...server.HandlerOption) error {
@@ -174,7 +160,6 @@ func RegisterBucketHandler(s server.Server, hdlr BucketHandler, opts ...server.H
 		UpdateEngine(ctx context.Context, in *BucketUpdateEngineRequest, out *BlankResponse) error
 		UpdateCapacity(ctx context.Context, in *BucketUpdateCapacityRequest, out *BlankResponse) error
 		ResetToken(ctx context.Context, in *BucketResetTokenRequest, out *BlankResponse) error
-		Auth(ctx context.Context, in *BucketAuthRequest, out *BucketAuthResponse) error
 	}
 	type Bucket struct {
 		bucket
@@ -213,8 +198,4 @@ func (h *bucketHandler) UpdateCapacity(ctx context.Context, in *BucketUpdateCapa
 
 func (h *bucketHandler) ResetToken(ctx context.Context, in *BucketResetTokenRequest, out *BlankResponse) error {
 	return h.BucketHandler.ResetToken(ctx, in, out)
-}
-
-func (h *bucketHandler) Auth(ctx context.Context, in *BucketAuthRequest, out *BucketAuthResponse) error {
-	return h.BucketHandler.Auth(ctx, in, out)
 }
