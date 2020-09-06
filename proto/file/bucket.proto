@@ -17,15 +17,23 @@ service Bucket
     rpc Get(BucketGetRequest) returns (BucketGetResponse) {}
     // 更新一个存储桶信息
     rpc Update(BucketUpdateRequest) returns (BlankResponse) {}
+    // 获取一个存储桶的凭证
+    rpc Auth(BucketAuthRequest) returns (BucketAuthResponse) {}
+    // 重置一个存储桶的访问令牌
+    rpc ResetToken(BucketResetTokenRequest) returns (BlankResponse) {}
+    // 修改一个存储桶的容量
+    rpc Resize(BucketResizeRequest) returns (BlankResponse) {}
 }
 
 // 创建存储桶的请求
 message BucketMakeRequest
 {
     string name = 1;         // 名称
-    string domain = 2;       // 存储桶所在的域名，默认为local
-    string accessKey = 3;    // 访问key
-    string accessSecret = 4; // 访问secret
+    uint64 capacity = 2;     // 初始容量
+    Engine engine = 3;       // 存储引擎
+    string address = 4;      // 存储引擎的地址
+    string accessKey = 5;    // 存储引擎的访问key
+    string accessSecret = 6; // 存储引擎的访问secret
 }
 
 // 列举存储桶的回复
@@ -66,7 +74,34 @@ message BucketGetResponse
 message BucketUpdateRequest
 {
     string name = 1;         // 名称
-    string domain = 2;       // 存储桶所在的域名，默认为local
-    string accessKey = 3;    // 访问key
-    string accessSecret = 4; // 访问secret
+    string address = 2;      // 存储引擎的地址
+    string accessKey = 3;    // 存储引擎的访问key
+    string accessSecret = 4; // 存储引擎的访问secret
+}
+
+// 获取存储桶的凭证的请求
+message BucketAuthRequest
+{
+    string name = 1;  // 名称
+    string token = 2; // 访问令牌
+}
+
+// 获取存储桶的凭证的回复
+message BucketAuthResponse
+{
+    Status status = 1;      // 状态
+    string accessToken = 2; // 存储引擎的访问令牌
+}
+
+// 重置存储桶的访问令牌
+message BucketResetTokenRequest
+{
+    string name = 1; // 名称
+}
+
+// 调整存储桶的容量
+message BucketResizeRequest
+{
+    string name = 1;     // 名称
+    uint64 capacity = 2; // 容量，单位byte
 }

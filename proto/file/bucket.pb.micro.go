@@ -44,6 +44,12 @@ type BucketService interface {
 	Get(ctx context.Context, in *BucketGetRequest, opts ...client.CallOption) (*BucketGetResponse, error)
 	// 更新一个存储桶信息
 	Update(ctx context.Context, in *BucketUpdateRequest, opts ...client.CallOption) (*BlankResponse, error)
+	// 获取一个存储桶的凭证
+	Auth(ctx context.Context, in *BucketAuthRequest, opts ...client.CallOption) (*BucketAuthResponse, error)
+	// 重置一个存储桶的访问令牌
+	ResetToken(ctx context.Context, in *BucketResetTokenRequest, opts ...client.CallOption) (*BlankResponse, error)
+	// 修改一个存储桶的容量
+	Resize(ctx context.Context, in *BucketResizeRequest, opts ...client.CallOption) (*BlankResponse, error)
 }
 
 type bucketService struct {
@@ -108,6 +114,36 @@ func (c *bucketService) Update(ctx context.Context, in *BucketUpdateRequest, opt
 	return out, nil
 }
 
+func (c *bucketService) Auth(ctx context.Context, in *BucketAuthRequest, opts ...client.CallOption) (*BucketAuthResponse, error) {
+	req := c.c.NewRequest(c.name, "Bucket.Auth", in)
+	out := new(BucketAuthResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *bucketService) ResetToken(ctx context.Context, in *BucketResetTokenRequest, opts ...client.CallOption) (*BlankResponse, error) {
+	req := c.c.NewRequest(c.name, "Bucket.ResetToken", in)
+	out := new(BlankResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *bucketService) Resize(ctx context.Context, in *BucketResizeRequest, opts ...client.CallOption) (*BlankResponse, error) {
+	req := c.c.NewRequest(c.name, "Bucket.Resize", in)
+	out := new(BlankResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // Server API for Bucket service
 
 type BucketHandler interface {
@@ -121,6 +157,12 @@ type BucketHandler interface {
 	Get(context.Context, *BucketGetRequest, *BucketGetResponse) error
 	// 更新一个存储桶信息
 	Update(context.Context, *BucketUpdateRequest, *BlankResponse) error
+	// 获取一个存储桶的凭证
+	Auth(context.Context, *BucketAuthRequest, *BucketAuthResponse) error
+	// 重置一个存储桶的访问令牌
+	ResetToken(context.Context, *BucketResetTokenRequest, *BlankResponse) error
+	// 修改一个存储桶的容量
+	Resize(context.Context, *BucketResizeRequest, *BlankResponse) error
 }
 
 func RegisterBucketHandler(s server.Server, hdlr BucketHandler, opts ...server.HandlerOption) error {
@@ -130,6 +172,9 @@ func RegisterBucketHandler(s server.Server, hdlr BucketHandler, opts ...server.H
 		Remove(ctx context.Context, in *BucketRemoveRequest, out *BlankResponse) error
 		Get(ctx context.Context, in *BucketGetRequest, out *BucketGetResponse) error
 		Update(ctx context.Context, in *BucketUpdateRequest, out *BlankResponse) error
+		Auth(ctx context.Context, in *BucketAuthRequest, out *BucketAuthResponse) error
+		ResetToken(ctx context.Context, in *BucketResetTokenRequest, out *BlankResponse) error
+		Resize(ctx context.Context, in *BucketResizeRequest, out *BlankResponse) error
 	}
 	type Bucket struct {
 		bucket
@@ -160,4 +205,16 @@ func (h *bucketHandler) Get(ctx context.Context, in *BucketGetRequest, out *Buck
 
 func (h *bucketHandler) Update(ctx context.Context, in *BucketUpdateRequest, out *BlankResponse) error {
 	return h.BucketHandler.Update(ctx, in, out)
+}
+
+func (h *bucketHandler) Auth(ctx context.Context, in *BucketAuthRequest, out *BucketAuthResponse) error {
+	return h.BucketHandler.Auth(ctx, in, out)
+}
+
+func (h *bucketHandler) ResetToken(ctx context.Context, in *BucketResetTokenRequest, out *BlankResponse) error {
+	return h.BucketHandler.ResetToken(ctx, in, out)
+}
+
+func (h *bucketHandler) Resize(ctx context.Context, in *BucketResizeRequest, out *BlankResponse) error {
+	return h.BucketHandler.Resize(ctx, in, out)
 }

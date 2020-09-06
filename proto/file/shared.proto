@@ -20,15 +20,25 @@ message BlankResponse
     Status status = 1; // 状态
 }
 
+// 存储引擎
+enum Engine {
+    ENGINE_INVALID = 0;  // 无效
+    ENGINE_MINIO = 1;    // MinIO
+    ENGINE_QINIU = 2;    // 七牛
+    ENGINE_CUSTOM = 100; // 自定义
+}
+
 // 存储桶实体
 message BucketEntity
 {
     string name = 1;         // 名称
-    string domain = 2;       // 域名
-    string accessKey = 3;    // 访问Key
-    string accessSecret = 4; // 访问Secret
-    uint64 totalSize = 5;    // 空间总容量, 单位byte
-    uint64 freeSize = 6;     // 空间可用容量, 单位byte
+    string token = 2;        // 访问令牌
+    uint64 totalSize = 3;    // 空间总容量, 单位byte
+    uint64 freeSize = 4;     // 空间可用容量, 单位byte
+    Engine engine = 5;       // 存储引擎
+    string address = 6;      // 存储引擎的地址
+    string accessKey = 7;    // 存储引擎的访问Key
+    string accessSecret = 8; // 存储引擎的访问Secret
 }
 
 // 对象实体
