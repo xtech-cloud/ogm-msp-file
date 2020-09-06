@@ -74,9 +74,10 @@ message BucketGetResponse
 message BucketUpdateEngineRequest
 {
     string name = 1;         // 名称
-    string address = 2;      // 存储引擎的地址
-    string accessKey = 3;    // 存储引擎的访问key
-    string accessSecret = 4; // 存储引擎的访问secret
+    Engine engine = 2;       // 存储引擎
+    string address = 3;      // 存储引擎的地址
+    string accessKey = 4;    // 存储引擎的访问key
+    string accessSecret = 5; // 存储引擎的访问secret
 }
 
 // 调整存储桶的容量
@@ -105,4 +106,3 @@ message BucketResetTokenRequest
 {
     string name = 1; // 名称
 }
-

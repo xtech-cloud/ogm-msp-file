@@ -23,8 +23,9 @@ message BlankResponse
 // 存储引擎
 enum Engine {
     ENGINE_INVALID = 0;  // 无效
-    ENGINE_MINIO = 1;    // MinIO
-    ENGINE_QINIU = 2;    // 七牛
+    ENGINE_LOCAL = 1;    // 本地
+    ENGINE_MINIO = 2;    // MinIO
+    ENGINE_QINIU = 3;    // 七牛
     ENGINE_CUSTOM = 100; // 自定义
 }
 
