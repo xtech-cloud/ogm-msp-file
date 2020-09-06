@@ -38,8 +38,9 @@ message BucketEntity
     uint64 freeSize = 4;     // 空间可用容量, 单位byte
     Engine engine = 5;       // 存储引擎
     string address = 6;      // 存储引擎的地址
-    string accessKey = 7;    // 存储引擎的访问Key
-    string accessSecret = 8; // 存储引擎的访问Secret
+    string scope = 7;        // 作用范围
+    string accessKey = 8;    // 存储引擎的访问Key
+    string accessSecret = 9; // 存储引擎的访问Secret
 }
 
 // 对象实体

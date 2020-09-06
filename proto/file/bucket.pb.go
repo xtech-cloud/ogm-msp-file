@@ -332,7 +332,7 @@ func (m *BucketGetResponse) GetEntity() *BucketEntity {
 	return nil
 }
 
-// 更新存储桶的请求
+// 更新存储桶引擎的请求
 type BucketUpdateEngineRequest struct {
 	Name                 string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	Engine               Engine   `protobuf:"varint,2,opt,name=engine,proto3,enum=file.Engine" json:"engine,omitempty"`
@@ -404,7 +404,7 @@ func (m *BucketUpdateEngineRequest) GetAccessSecret() string {
 	return ""
 }
 
-// 调整存储桶的容量
+// 更新存储桶的容量的请求
 type BucketUpdateCapacityRequest struct {
 	Name                 string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	Capacity             uint64   `protobuf:"varint,2,opt,name=capacity,proto3" json:"capacity,omitempty"`

@@ -70,7 +70,7 @@ message BucketGetResponse
     BucketEntity entity = 2; // 实体
 }
 
-// 更新存储桶的请求
+// 更新存储桶引擎的请求
 message BucketUpdateEngineRequest
 {
     string name = 1;         // 名称
@@ -80,7 +80,7 @@ message BucketUpdateEngineRequest
     string accessSecret = 5; // 存储引擎的访问secret
 }
 
-// 调整存储桶的容量
+// 更新存储桶的容量的请求
 message BucketUpdateCapacityRequest
 {
     string name = 1;     // 名称
