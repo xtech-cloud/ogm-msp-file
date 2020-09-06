@@ -19,10 +19,10 @@ service Bucket
     rpc UpdateEngine(BucketUpdateEngineRequest) returns (BlankResponse) {}
     // 更新一个存储桶的容量
     rpc UpdateCapacity(BucketUpdateCapacityRequest) returns (BlankResponse) {}
-    // 获取一个存储桶的凭证
-    rpc Auth(BucketAuthRequest) returns (BucketAuthResponse) {}
     // 重置一个存储桶的访问令牌
     rpc ResetToken(BucketResetTokenRequest) returns (BlankResponse) {}
+    // 获取一个存储桶的凭证
+    rpc Auth(BucketAuthRequest) returns (BucketAuthResponse) {}
 }
 
 // 创建存储桶的请求
