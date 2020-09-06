@@ -31,7 +31,7 @@ service Object
 message ObjectPrepareRequest
 {
     string bucket = 1; // 存储桶
-    string md5 = 2;    // 对象MD5值
+    string uname = 2;  // 存储引擎中的唯一名
     uint64 size = 3;   // 对象大小
 }
 
@@ -48,7 +48,7 @@ message ObjectPrepareResponse
 message ObjectFlushRequest
 {
     string bucket = 1; // 存储桶
-    string md5 = 2;    // 对象MD5值
+    string uname = 2;  // 存储引擎中的唯一名
     string path = 3;   // 对象存储的路径
 }
 
