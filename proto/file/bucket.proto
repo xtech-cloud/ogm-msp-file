@@ -46,7 +46,7 @@ message BucketListRequest
 message BucketListResponse
 {
     Status status = 1;                // 状态
-    int64 total = 2;                  // 总数
+    uint64 total = 2;                 // 总数
     repeated BucketEntity entity = 3; // 实体列表
 }
 

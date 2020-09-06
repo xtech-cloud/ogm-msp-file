@@ -36,7 +36,7 @@ message BucketEntity
     string name = 2;          // 名称
     string token = 3;         // 访问令牌
     uint64 totalSize = 4;     // 空间总容量, 单位byte
-    uint64 freeSize = 5;      // 空间可用容量, 单位byte
+    uint64 usedSize = 5;      // 空间已用容量, 单位byte
     Engine engine = 6;        // 存储引擎
     string address = 7;       // 存储引擎的地址
     string scope = 8;         // 作用范围

@@ -118,6 +118,6 @@ message ObjectListRequest
 message ObjectListResponse
 {
     Status status = 1;                // 状态
-    uint64 total = 2;                 // 总数
+    uint64 total = 2;                  // 总数
     repeated ObjectEntity entity = 3; // 实体列表
 }
