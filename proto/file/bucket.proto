@@ -2,7 +2,7 @@ syntax = "proto3";
 
 import "proto/file/shared.proto";
 
-package file;
+package omo.msa.file;
 
 // 存储桶
 service Bucket
