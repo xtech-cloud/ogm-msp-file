@@ -39,7 +39,7 @@ service Object
     rpc Preview(ObjectPreviewRequest) returns (ObjectPreviewResponse) {}
     // 撤回一个对象
     // 撤回公开链接，对象的URL无值
-    rpc Retract(ObjectPublishRequest) returns (BlankResponse) {}
+    rpc Retract(ObjectRetractRequest) returns (BlankResponse) {}
 }
 
 // 准备对象元数据的请求

@@ -58,7 +58,7 @@ type ObjectService interface {
 	Preview(ctx context.Context, in *ObjectPreviewRequest, opts ...client.CallOption) (*ObjectPreviewResponse, error)
 	// 撤回一个对象
 	// 撤回公开链接，对象的URL无值
-	Retract(ctx context.Context, in *ObjectPublishRequest, opts ...client.CallOption) (*BlankResponse, error)
+	Retract(ctx context.Context, in *ObjectRetractRequest, opts ...client.CallOption) (*BlankResponse, error)
 }
 
 type objectService struct {
@@ -163,7 +163,7 @@ func (c *objectService) Preview(ctx context.Context, in *ObjectPreviewRequest, o
 	return out, nil
 }
 
-func (c *objectService) Retract(ctx context.Context, in *ObjectPublishRequest, opts ...client.CallOption) (*BlankResponse, error) {
+func (c *objectService) Retract(ctx context.Context, in *ObjectRetractRequest, opts ...client.CallOption) (*BlankResponse, error) {
 	req := c.c.NewRequest(c.name, "Object.Retract", in)
 	out := new(BlankResponse)
 	err := c.c.Call(ctx, req, out, opts...)
@@ -200,7 +200,7 @@ type ObjectHandler interface {
 	Preview(context.Context, *ObjectPreviewRequest, *ObjectPreviewResponse) error
 	// 撤回一个对象
 	// 撤回公开链接，对象的URL无值
-	Retract(context.Context, *ObjectPublishRequest, *BlankResponse) error
+	Retract(context.Context, *ObjectRetractRequest, *BlankResponse) error
 }
 
 func RegisterObjectHandler(s server.Server, hdlr ObjectHandler, opts ...server.HandlerOption) error {
@@ -214,7 +214,7 @@ func RegisterObjectHandler(s server.Server, hdlr ObjectHandler, opts ...server.H
 		Search(ctx context.Context, in *ObjectSearchRequest, out *ObjectSearchResponse) error
 		Publish(ctx context.Context, in *ObjectPublishRequest, out *ObjectPublishResponse) error
 		Preview(ctx context.Context, in *ObjectPreviewRequest, out *ObjectPreviewResponse) error
-		Retract(ctx context.Context, in *ObjectPublishRequest, out *BlankResponse) error
+		Retract(ctx context.Context, in *ObjectRetractRequest, out *BlankResponse) error
 	}
 	type Object struct {
 		object
@@ -263,6 +263,6 @@ func (h *objectHandler) Preview(ctx context.Context, in *ObjectPreviewRequest, o
 	return h.ObjectHandler.Preview(ctx, in, out)
 }
 
-func (h *objectHandler) Retract(ctx context.Context, in *ObjectPublishRequest, out *BlankResponse) error {
+func (h *objectHandler) Retract(ctx context.Context, in *ObjectRetractRequest, out *BlankResponse) error {
 	return h.ObjectHandler.Retract(ctx, in, out)
 }
