@@ -40,10 +40,25 @@ type ObjectService interface {
 	Flush(ctx context.Context, in *ObjectFlushRequest, opts ...client.CallOption) (*BlankResponse, error)
 	// 获取一个对象信息
 	Get(ctx context.Context, in *ObjectGetRequest, opts ...client.CallOption) (*ObjectGetResponse, error)
+	// 查找一个对象信息
+	Find(ctx context.Context, in *ObjectFindRequest, opts ...client.CallOption) (*ObjectFindResponse, error)
 	// 删除一个对象
 	Remove(ctx context.Context, in *ObjectRemoveRequest, opts ...client.CallOption) (*BlankResponse, error)
 	// 列举一个存储桶中的所有对象
+	// 精确匹配
 	List(ctx context.Context, in *ObjectListRequest, opts ...client.CallOption) (*ObjectListResponse, error)
+	// 搜索一个存储桶中的指定对象
+	// 模糊匹配
+	Search(ctx context.Context, in *ObjectSearchRequest, opts ...client.CallOption) (*ObjectSearchResponse, error)
+	// 发布一个对象
+	// 生成指定有效期的公开链接, 对象的URL有值
+	Publish(ctx context.Context, in *ObjectPublishRequest, opts ...client.CallOption) (*ObjectPublishResponse, error)
+	// 预览一个对象
+	// 生成临时的五分钟的公开链接, 对象的URL无值
+	Preview(ctx context.Context, in *ObjectPreviewRequest, opts ...client.CallOption) (*ObjectPreviewResponse, error)
+	// 撤回一个对象
+	// 撤回公开链接，对象的URL无值
+	Retract(ctx context.Context, in *ObjectPublishRequest, opts ...client.CallOption) (*BlankResponse, error)
 }
 
 type objectService struct {
@@ -88,6 +103,16 @@ func (c *objectService) Get(ctx context.Context, in *ObjectGetRequest, opts ...c
 	return out, nil
 }
 
+func (c *objectService) Find(ctx context.Context, in *ObjectFindRequest, opts ...client.CallOption) (*ObjectFindResponse, error) {
+	req := c.c.NewRequest(c.name, "Object.Find", in)
+	out := new(ObjectFindResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *objectService) Remove(ctx context.Context, in *ObjectRemoveRequest, opts ...client.CallOption) (*BlankResponse, error) {
 	req := c.c.NewRequest(c.name, "Object.Remove", in)
 	out := new(BlankResponse)
@@ -108,6 +133,46 @@ func (c *objectService) List(ctx context.Context, in *ObjectListRequest, opts ..
 	return out, nil
 }
 
+func (c *objectService) Search(ctx context.Context, in *ObjectSearchRequest, opts ...client.CallOption) (*ObjectSearchResponse, error) {
+	req := c.c.NewRequest(c.name, "Object.Search", in)
+	out := new(ObjectSearchResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *objectService) Publish(ctx context.Context, in *ObjectPublishRequest, opts ...client.CallOption) (*ObjectPublishResponse, error) {
+	req := c.c.NewRequest(c.name, "Object.Publish", in)
+	out := new(ObjectPublishResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *objectService) Preview(ctx context.Context, in *ObjectPreviewRequest, opts ...client.CallOption) (*ObjectPreviewResponse, error) {
+	req := c.c.NewRequest(c.name, "Object.Preview", in)
+	out := new(ObjectPreviewResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *objectService) Retract(ctx context.Context, in *ObjectPublishRequest, opts ...client.CallOption) (*BlankResponse, error) {
+	req := c.c.NewRequest(c.name, "Object.Retract", in)
+	out := new(BlankResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // Server API for Object service
 
 type ObjectHandler interface {
@@ -117,10 +182,25 @@ type ObjectHandler interface {
 	Flush(context.Context, *ObjectFlushRequest, *BlankResponse) error
 	// 获取一个对象信息
 	Get(context.Context, *ObjectGetRequest, *ObjectGetResponse) error
+	// 查找一个对象信息
+	Find(context.Context, *ObjectFindRequest, *ObjectFindResponse) error
 	// 删除一个对象
 	Remove(context.Context, *ObjectRemoveRequest, *BlankResponse) error
 	// 列举一个存储桶中的所有对象
+	// 精确匹配
 	List(context.Context, *ObjectListRequest, *ObjectListResponse) error
+	// 搜索一个存储桶中的指定对象
+	// 模糊匹配
+	Search(context.Context, *ObjectSearchRequest, *ObjectSearchResponse) error
+	// 发布一个对象
+	// 生成指定有效期的公开链接, 对象的URL有值
+	Publish(context.Context, *ObjectPublishRequest, *ObjectPublishResponse) error
+	// 预览一个对象
+	// 生成临时的五分钟的公开链接, 对象的URL无值
+	Preview(context.Context, *ObjectPreviewRequest, *ObjectPreviewResponse) error
+	// 撤回一个对象
+	// 撤回公开链接，对象的URL无值
+	Retract(context.Context, *ObjectPublishRequest, *BlankResponse) error
 }
 
 func RegisterObjectHandler(s server.Server, hdlr ObjectHandler, opts ...server.HandlerOption) error {
@@ -128,8 +208,13 @@ func RegisterObjectHandler(s server.Server, hdlr ObjectHandler, opts ...server.H
 		Prepare(ctx context.Context, in *ObjectPrepareRequest, out *ObjectPrepareResponse) error
 		Flush(ctx context.Context, in *ObjectFlushRequest, out *BlankResponse) error
 		Get(ctx context.Context, in *ObjectGetRequest, out *ObjectGetResponse) error
+		Find(ctx context.Context, in *ObjectFindRequest, out *ObjectFindResponse) error
 		Remove(ctx context.Context, in *ObjectRemoveRequest, out *BlankResponse) error
 		List(ctx context.Context, in *ObjectListRequest, out *ObjectListResponse) error
+		Search(ctx context.Context, in *ObjectSearchRequest, out *ObjectSearchResponse) error
+		Publish(ctx context.Context, in *ObjectPublishRequest, out *ObjectPublishResponse) error
+		Preview(ctx context.Context, in *ObjectPreviewRequest, out *ObjectPreviewResponse) error
+		Retract(ctx context.Context, in *ObjectPublishRequest, out *BlankResponse) error
 	}
 	type Object struct {
 		object
@@ -154,10 +239,30 @@ func (h *objectHandler) Get(ctx context.Context, in *ObjectGetRequest, out *Obje
 	return h.ObjectHandler.Get(ctx, in, out)
 }
 
+func (h *objectHandler) Find(ctx context.Context, in *ObjectFindRequest, out *ObjectFindResponse) error {
+	return h.ObjectHandler.Find(ctx, in, out)
+}
+
 func (h *objectHandler) Remove(ctx context.Context, in *ObjectRemoveRequest, out *BlankResponse) error {
 	return h.ObjectHandler.Remove(ctx, in, out)
 }
 
 func (h *objectHandler) List(ctx context.Context, in *ObjectListRequest, out *ObjectListResponse) error {
 	return h.ObjectHandler.List(ctx, in, out)
+}
+
+func (h *objectHandler) Search(ctx context.Context, in *ObjectSearchRequest, out *ObjectSearchResponse) error {
+	return h.ObjectHandler.Search(ctx, in, out)
+}
+
+func (h *objectHandler) Publish(ctx context.Context, in *ObjectPublishRequest, out *ObjectPublishResponse) error {
+	return h.ObjectHandler.Publish(ctx, in, out)
+}
+
+func (h *objectHandler) Preview(ctx context.Context, in *ObjectPreviewRequest, out *ObjectPreviewResponse) error {
+	return h.ObjectHandler.Preview(ctx, in, out)
+}
+
+func (h *objectHandler) Retract(ctx context.Context, in *ObjectPublishRequest, out *BlankResponse) error {
+	return h.ObjectHandler.Retract(ctx, in, out)
 }

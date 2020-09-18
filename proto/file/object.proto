@@ -21,10 +21,25 @@ service Object
     */
     // 获取一个对象信息
     rpc Get(ObjectGetRequest) returns (ObjectGetResponse) {}
+    // 查找一个对象信息
+    rpc Find(ObjectFindRequest) returns (ObjectFindResponse) {}
     // 删除一个对象
     rpc Remove(ObjectRemoveRequest) returns (BlankResponse) {}
     // 列举一个存储桶中的所有对象
+    // 精确匹配
     rpc List(ObjectListRequest) returns (ObjectListResponse) {}
+    // 搜索一个存储桶中的指定对象
+    // 模糊匹配
+    rpc Search(ObjectSearchRequest) returns (ObjectSearchResponse) {}
+    // 发布一个对象
+    // 生成指定有效期的公开链接, 对象的URL有值
+    rpc Publish(ObjectPublishRequest) returns (ObjectPublishResponse) {}
+    // 预览一个对象
+    // 生成临时的五分钟的公开链接, 对象的URL无值
+    rpc Preview(ObjectPreviewRequest) returns (ObjectPreviewResponse) {}
+    // 撤回一个对象
+    // 撤回公开链接，对象的URL无值
+    rpc Retract(ObjectPublishRequest) returns (BlankResponse) {}
 }
 
 // 准备对象元数据的请求
@@ -50,6 +65,39 @@ message ObjectFlushRequest
     string bucket = 1; // 存储桶
     string uname = 2;  // 存储引擎中的唯一名
     string path = 3;   // 对象存储的路径
+}
+
+// 发布对象的请求
+message ObjectPublishRequest
+{
+    string uuid = 1;   // uuid
+    uint64 expiry = 2; // 有效期，单位秒
+}
+
+// 发布对象的回复
+message ObjectPublishResponse
+{
+    Status status = 1; // 状态
+    string url = 2;    // 访问地址
+}
+
+// 预览对象的请求
+message ObjectPreviewRequest
+{
+    string uuid = 1;   // uuid
+}
+
+// 预览对象的回复
+message ObjectPreviewResponse
+{
+    Status status = 1; // 状态
+    string url = 2;    // 访问地址
+}
+
+// 撤回对象据的请求
+message ObjectRetractRequest
+{
+    string uuid = 1;   // uuid
 }
 
 /*
@@ -99,11 +147,24 @@ message ObjectGetResponse
     ObjectEntity entity = 2; // 实体
 }
 
+// 查找对象的请求
+message ObjectFindRequest
+{
+    string bucket = 1; // 存储桶
+    string filepath = 2; // 文件路径
+}
+
+// 查找对象的回复
+message ObjectFindResponse
+{
+    Status status = 1;       // 状态
+    ObjectEntity entity = 2; // 实体
+}
+
 // 删除对象的请求
 message ObjectRemoveRequest
 {
-    string bucket = 1;   // 存储桶
-    string filepath = 2; // 文件路径
+    string uuid = 1;   // uuid
 }
 
 // 列举对象的请求
@@ -111,14 +172,30 @@ message ObjectListRequest
 {
     int64 offset = 1;  // 偏移值
     int64 count = 2;   // 数量
-    string bucket = 3; // 储存桶
-    string prefix = 4; // 路径前缀
+    string bucket = 3; // 储存桶(UUID)
 }
 
 // 列举对象的回复
 message ObjectListResponse
 {
     Status status = 1;                // 状态
-    uint64 total = 2;                  // 总数
+    uint64 total = 2;                 // 总数
+    repeated ObjectEntity entity = 3; // 实体列表
+}
+
+// 搜索对象的请求
+message ObjectSearchRequest
+{
+    int64 offset = 1;  // 偏移值
+    int64 count = 2;   // 数量
+    string bucket = 3; // 储存桶(name)
+    string prefix = 4; // 路径前缀
+}
+
+// 搜索对象的回复
+message ObjectSearchResponse
+{
+    Status status = 1;                // 状态
+    uint64 total = 2;                 // 总数
     repeated ObjectEntity entity = 3; // 实体列表
 }

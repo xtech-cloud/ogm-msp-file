@@ -42,6 +42,8 @@ type BucketService interface {
 	Remove(ctx context.Context, in *BucketRemoveRequest, opts ...client.CallOption) (*BlankResponse, error)
 	// 获取一个存储桶信息
 	Get(ctx context.Context, in *BucketGetRequest, opts ...client.CallOption) (*BucketGetResponse, error)
+	// 查找一个存储桶信息
+	Find(ctx context.Context, in *BucketFindRequest, opts ...client.CallOption) (*BucketFindResponse, error)
 	// 更新一个存储桶的引擎
 	UpdateEngine(ctx context.Context, in *BucketUpdateEngineRequest, opts ...client.CallOption) (*BlankResponse, error)
 	// 更新一个存储桶的容量
@@ -102,6 +104,16 @@ func (c *bucketService) Get(ctx context.Context, in *BucketGetRequest, opts ...c
 	return out, nil
 }
 
+func (c *bucketService) Find(ctx context.Context, in *BucketFindRequest, opts ...client.CallOption) (*BucketFindResponse, error) {
+	req := c.c.NewRequest(c.name, "Bucket.Find", in)
+	out := new(BucketFindResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *bucketService) UpdateEngine(ctx context.Context, in *BucketUpdateEngineRequest, opts ...client.CallOption) (*BlankResponse, error) {
 	req := c.c.NewRequest(c.name, "Bucket.UpdateEngine", in)
 	out := new(BlankResponse)
@@ -143,6 +155,8 @@ type BucketHandler interface {
 	Remove(context.Context, *BucketRemoveRequest, *BlankResponse) error
 	// 获取一个存储桶信息
 	Get(context.Context, *BucketGetRequest, *BucketGetResponse) error
+	// 查找一个存储桶信息
+	Find(context.Context, *BucketFindRequest, *BucketFindResponse) error
 	// 更新一个存储桶的引擎
 	UpdateEngine(context.Context, *BucketUpdateEngineRequest, *BlankResponse) error
 	// 更新一个存储桶的容量
@@ -157,6 +171,7 @@ func RegisterBucketHandler(s server.Server, hdlr BucketHandler, opts ...server.H
 		List(ctx context.Context, in *BucketListRequest, out *BucketListResponse) error
 		Remove(ctx context.Context, in *BucketRemoveRequest, out *BlankResponse) error
 		Get(ctx context.Context, in *BucketGetRequest, out *BucketGetResponse) error
+		Find(ctx context.Context, in *BucketFindRequest, out *BucketFindResponse) error
 		UpdateEngine(ctx context.Context, in *BucketUpdateEngineRequest, out *BlankResponse) error
 		UpdateCapacity(ctx context.Context, in *BucketUpdateCapacityRequest, out *BlankResponse) error
 		ResetToken(ctx context.Context, in *BucketResetTokenRequest, out *BlankResponse) error
@@ -186,6 +201,10 @@ func (h *bucketHandler) Remove(ctx context.Context, in *BucketRemoveRequest, out
 
 func (h *bucketHandler) Get(ctx context.Context, in *BucketGetRequest, out *BucketGetResponse) error {
 	return h.BucketHandler.Get(ctx, in, out)
+}
+
+func (h *bucketHandler) Find(ctx context.Context, in *BucketFindRequest, out *BucketFindResponse) error {
+	return h.BucketHandler.Find(ctx, in, out)
 }
 
 func (h *bucketHandler) UpdateEngine(ctx context.Context, in *BucketUpdateEngineRequest, out *BlankResponse) error {

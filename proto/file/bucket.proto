@@ -15,6 +15,8 @@ service Bucket
     rpc Remove(BucketRemoveRequest) returns (BlankResponse) {}
     // 获取一个存储桶信息
     rpc Get(BucketGetRequest) returns (BucketGetResponse) {}
+    // 查找一个存储桶信息
+    rpc Find(BucketFindRequest) returns (BucketFindResponse) {}
     // 更新一个存储桶的引擎
     rpc UpdateEngine(BucketUpdateEngineRequest) returns (BlankResponse) {}
     // 更新一个存储桶的容量
@@ -64,6 +66,19 @@ message BucketGetRequest
 
 // 获取存储桶信息的回复
 message BucketGetResponse
+{
+    Status status = 1;       // 状态
+    BucketEntity entity = 2; // 实体
+}
+
+// 查找一个存储桶信息的请求
+message BucketFindRequest
+{
+    string name = 1; // name
+}
+
+// 查找一个存储桶信息的回复
+message BucketFindResponse
 {
     Status status = 1;       // 状态
     BucketEntity entity = 2; // 实体

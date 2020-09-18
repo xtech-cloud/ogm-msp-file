@@ -196,6 +196,230 @@ func (m *ObjectFlushRequest) GetPath() string {
 	return ""
 }
 
+// 发布对象的请求
+type ObjectPublishRequest struct {
+	Uuid                 string   `protobuf:"bytes,1,opt,name=uuid,proto3" json:"uuid,omitempty"`
+	Expiry               uint64   `protobuf:"varint,2,opt,name=expiry,proto3" json:"expiry,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ObjectPublishRequest) Reset()         { *m = ObjectPublishRequest{} }
+func (m *ObjectPublishRequest) String() string { return proto.CompactTextString(m) }
+func (*ObjectPublishRequest) ProtoMessage()    {}
+func (*ObjectPublishRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5044922ea3425f24, []int{3}
+}
+
+func (m *ObjectPublishRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ObjectPublishRequest.Unmarshal(m, b)
+}
+func (m *ObjectPublishRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ObjectPublishRequest.Marshal(b, m, deterministic)
+}
+func (m *ObjectPublishRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ObjectPublishRequest.Merge(m, src)
+}
+func (m *ObjectPublishRequest) XXX_Size() int {
+	return xxx_messageInfo_ObjectPublishRequest.Size(m)
+}
+func (m *ObjectPublishRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ObjectPublishRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ObjectPublishRequest proto.InternalMessageInfo
+
+func (m *ObjectPublishRequest) GetUuid() string {
+	if m != nil {
+		return m.Uuid
+	}
+	return ""
+}
+
+func (m *ObjectPublishRequest) GetExpiry() uint64 {
+	if m != nil {
+		return m.Expiry
+	}
+	return 0
+}
+
+// 发布对象的回复
+type ObjectPublishResponse struct {
+	Status               *Status  `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	Url                  string   `protobuf:"bytes,2,opt,name=url,proto3" json:"url,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ObjectPublishResponse) Reset()         { *m = ObjectPublishResponse{} }
+func (m *ObjectPublishResponse) String() string { return proto.CompactTextString(m) }
+func (*ObjectPublishResponse) ProtoMessage()    {}
+func (*ObjectPublishResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5044922ea3425f24, []int{4}
+}
+
+func (m *ObjectPublishResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ObjectPublishResponse.Unmarshal(m, b)
+}
+func (m *ObjectPublishResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ObjectPublishResponse.Marshal(b, m, deterministic)
+}
+func (m *ObjectPublishResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ObjectPublishResponse.Merge(m, src)
+}
+func (m *ObjectPublishResponse) XXX_Size() int {
+	return xxx_messageInfo_ObjectPublishResponse.Size(m)
+}
+func (m *ObjectPublishResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_ObjectPublishResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ObjectPublishResponse proto.InternalMessageInfo
+
+func (m *ObjectPublishResponse) GetStatus() *Status {
+	if m != nil {
+		return m.Status
+	}
+	return nil
+}
+
+func (m *ObjectPublishResponse) GetUrl() string {
+	if m != nil {
+		return m.Url
+	}
+	return ""
+}
+
+// 预览对象的请求
+type ObjectPreviewRequest struct {
+	Uuid                 string   `protobuf:"bytes,1,opt,name=uuid,proto3" json:"uuid,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ObjectPreviewRequest) Reset()         { *m = ObjectPreviewRequest{} }
+func (m *ObjectPreviewRequest) String() string { return proto.CompactTextString(m) }
+func (*ObjectPreviewRequest) ProtoMessage()    {}
+func (*ObjectPreviewRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5044922ea3425f24, []int{5}
+}
+
+func (m *ObjectPreviewRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ObjectPreviewRequest.Unmarshal(m, b)
+}
+func (m *ObjectPreviewRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ObjectPreviewRequest.Marshal(b, m, deterministic)
+}
+func (m *ObjectPreviewRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ObjectPreviewRequest.Merge(m, src)
+}
+func (m *ObjectPreviewRequest) XXX_Size() int {
+	return xxx_messageInfo_ObjectPreviewRequest.Size(m)
+}
+func (m *ObjectPreviewRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ObjectPreviewRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ObjectPreviewRequest proto.InternalMessageInfo
+
+func (m *ObjectPreviewRequest) GetUuid() string {
+	if m != nil {
+		return m.Uuid
+	}
+	return ""
+}
+
+// 预览对象的回复
+type ObjectPreviewResponse struct {
+	Status               *Status  `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	Url                  string   `protobuf:"bytes,2,opt,name=url,proto3" json:"url,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ObjectPreviewResponse) Reset()         { *m = ObjectPreviewResponse{} }
+func (m *ObjectPreviewResponse) String() string { return proto.CompactTextString(m) }
+func (*ObjectPreviewResponse) ProtoMessage()    {}
+func (*ObjectPreviewResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5044922ea3425f24, []int{6}
+}
+
+func (m *ObjectPreviewResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ObjectPreviewResponse.Unmarshal(m, b)
+}
+func (m *ObjectPreviewResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ObjectPreviewResponse.Marshal(b, m, deterministic)
+}
+func (m *ObjectPreviewResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ObjectPreviewResponse.Merge(m, src)
+}
+func (m *ObjectPreviewResponse) XXX_Size() int {
+	return xxx_messageInfo_ObjectPreviewResponse.Size(m)
+}
+func (m *ObjectPreviewResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_ObjectPreviewResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ObjectPreviewResponse proto.InternalMessageInfo
+
+func (m *ObjectPreviewResponse) GetStatus() *Status {
+	if m != nil {
+		return m.Status
+	}
+	return nil
+}
+
+func (m *ObjectPreviewResponse) GetUrl() string {
+	if m != nil {
+		return m.Url
+	}
+	return ""
+}
+
+// 撤回对象据的请求
+type ObjectRetractRequest struct {
+	Uuid                 string   `protobuf:"bytes,1,opt,name=uuid,proto3" json:"uuid,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ObjectRetractRequest) Reset()         { *m = ObjectRetractRequest{} }
+func (m *ObjectRetractRequest) String() string { return proto.CompactTextString(m) }
+func (*ObjectRetractRequest) ProtoMessage()    {}
+func (*ObjectRetractRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5044922ea3425f24, []int{7}
+}
+
+func (m *ObjectRetractRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ObjectRetractRequest.Unmarshal(m, b)
+}
+func (m *ObjectRetractRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ObjectRetractRequest.Marshal(b, m, deterministic)
+}
+func (m *ObjectRetractRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ObjectRetractRequest.Merge(m, src)
+}
+func (m *ObjectRetractRequest) XXX_Size() int {
+	return xxx_messageInfo_ObjectRetractRequest.Size(m)
+}
+func (m *ObjectRetractRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ObjectRetractRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ObjectRetractRequest proto.InternalMessageInfo
+
+func (m *ObjectRetractRequest) GetUuid() string {
+	if m != nil {
+		return m.Uuid
+	}
+	return ""
+}
+
 // 获取对象的请求
 type ObjectGetRequest struct {
 	Uuid                 string   `protobuf:"bytes,1,opt,name=uuid,proto3" json:"uuid,omitempty"`
@@ -208,7 +432,7 @@ func (m *ObjectGetRequest) Reset()         { *m = ObjectGetRequest{} }
 func (m *ObjectGetRequest) String() string { return proto.CompactTextString(m) }
 func (*ObjectGetRequest) ProtoMessage()    {}
 func (*ObjectGetRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5044922ea3425f24, []int{3}
+	return fileDescriptor_5044922ea3425f24, []int{8}
 }
 
 func (m *ObjectGetRequest) XXX_Unmarshal(b []byte) error {
@@ -249,7 +473,7 @@ func (m *ObjectGetResponse) Reset()         { *m = ObjectGetResponse{} }
 func (m *ObjectGetResponse) String() string { return proto.CompactTextString(m) }
 func (*ObjectGetResponse) ProtoMessage()    {}
 func (*ObjectGetResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5044922ea3425f24, []int{4}
+	return fileDescriptor_5044922ea3425f24, []int{9}
 }
 
 func (m *ObjectGetResponse) XXX_Unmarshal(b []byte) error {
@@ -284,10 +508,105 @@ func (m *ObjectGetResponse) GetEntity() *ObjectEntity {
 	return nil
 }
 
-// 删除对象的请求
-type ObjectRemoveRequest struct {
+// 查找对象的请求
+type ObjectFindRequest struct {
 	Bucket               string   `protobuf:"bytes,1,opt,name=bucket,proto3" json:"bucket,omitempty"`
 	Filepath             string   `protobuf:"bytes,2,opt,name=filepath,proto3" json:"filepath,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ObjectFindRequest) Reset()         { *m = ObjectFindRequest{} }
+func (m *ObjectFindRequest) String() string { return proto.CompactTextString(m) }
+func (*ObjectFindRequest) ProtoMessage()    {}
+func (*ObjectFindRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5044922ea3425f24, []int{10}
+}
+
+func (m *ObjectFindRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ObjectFindRequest.Unmarshal(m, b)
+}
+func (m *ObjectFindRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ObjectFindRequest.Marshal(b, m, deterministic)
+}
+func (m *ObjectFindRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ObjectFindRequest.Merge(m, src)
+}
+func (m *ObjectFindRequest) XXX_Size() int {
+	return xxx_messageInfo_ObjectFindRequest.Size(m)
+}
+func (m *ObjectFindRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ObjectFindRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ObjectFindRequest proto.InternalMessageInfo
+
+func (m *ObjectFindRequest) GetBucket() string {
+	if m != nil {
+		return m.Bucket
+	}
+	return ""
+}
+
+func (m *ObjectFindRequest) GetFilepath() string {
+	if m != nil {
+		return m.Filepath
+	}
+	return ""
+}
+
+// 查找对象的回复
+type ObjectFindResponse struct {
+	Status               *Status       `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	Entity               *ObjectEntity `protobuf:"bytes,2,opt,name=entity,proto3" json:"entity,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
+	XXX_unrecognized     []byte        `json:"-"`
+	XXX_sizecache        int32         `json:"-"`
+}
+
+func (m *ObjectFindResponse) Reset()         { *m = ObjectFindResponse{} }
+func (m *ObjectFindResponse) String() string { return proto.CompactTextString(m) }
+func (*ObjectFindResponse) ProtoMessage()    {}
+func (*ObjectFindResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5044922ea3425f24, []int{11}
+}
+
+func (m *ObjectFindResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ObjectFindResponse.Unmarshal(m, b)
+}
+func (m *ObjectFindResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ObjectFindResponse.Marshal(b, m, deterministic)
+}
+func (m *ObjectFindResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ObjectFindResponse.Merge(m, src)
+}
+func (m *ObjectFindResponse) XXX_Size() int {
+	return xxx_messageInfo_ObjectFindResponse.Size(m)
+}
+func (m *ObjectFindResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_ObjectFindResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ObjectFindResponse proto.InternalMessageInfo
+
+func (m *ObjectFindResponse) GetStatus() *Status {
+	if m != nil {
+		return m.Status
+	}
+	return nil
+}
+
+func (m *ObjectFindResponse) GetEntity() *ObjectEntity {
+	if m != nil {
+		return m.Entity
+	}
+	return nil
+}
+
+// 删除对象的请求
+type ObjectRemoveRequest struct {
+	Uuid                 string   `protobuf:"bytes,1,opt,name=uuid,proto3" json:"uuid,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -297,7 +616,7 @@ func (m *ObjectRemoveRequest) Reset()         { *m = ObjectRemoveRequest{} }
 func (m *ObjectRemoveRequest) String() string { return proto.CompactTextString(m) }
 func (*ObjectRemoveRequest) ProtoMessage()    {}
 func (*ObjectRemoveRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5044922ea3425f24, []int{5}
+	return fileDescriptor_5044922ea3425f24, []int{12}
 }
 
 func (m *ObjectRemoveRequest) XXX_Unmarshal(b []byte) error {
@@ -318,16 +637,9 @@ func (m *ObjectRemoveRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_ObjectRemoveRequest proto.InternalMessageInfo
 
-func (m *ObjectRemoveRequest) GetBucket() string {
+func (m *ObjectRemoveRequest) GetUuid() string {
 	if m != nil {
-		return m.Bucket
-	}
-	return ""
-}
-
-func (m *ObjectRemoveRequest) GetFilepath() string {
-	if m != nil {
-		return m.Filepath
+		return m.Uuid
 	}
 	return ""
 }
@@ -337,7 +649,6 @@ type ObjectListRequest struct {
 	Offset               int64    `protobuf:"varint,1,opt,name=offset,proto3" json:"offset,omitempty"`
 	Count                int64    `protobuf:"varint,2,opt,name=count,proto3" json:"count,omitempty"`
 	Bucket               string   `protobuf:"bytes,3,opt,name=bucket,proto3" json:"bucket,omitempty"`
-	Prefix               string   `protobuf:"bytes,4,opt,name=prefix,proto3" json:"prefix,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -347,7 +658,7 @@ func (m *ObjectListRequest) Reset()         { *m = ObjectListRequest{} }
 func (m *ObjectListRequest) String() string { return proto.CompactTextString(m) }
 func (*ObjectListRequest) ProtoMessage()    {}
 func (*ObjectListRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5044922ea3425f24, []int{6}
+	return fileDescriptor_5044922ea3425f24, []int{13}
 }
 
 func (m *ObjectListRequest) XXX_Unmarshal(b []byte) error {
@@ -389,13 +700,6 @@ func (m *ObjectListRequest) GetBucket() string {
 	return ""
 }
 
-func (m *ObjectListRequest) GetPrefix() string {
-	if m != nil {
-		return m.Prefix
-	}
-	return ""
-}
-
 // 列举对象的回复
 type ObjectListResponse struct {
 	Status               *Status         `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
@@ -410,7 +714,7 @@ func (m *ObjectListResponse) Reset()         { *m = ObjectListResponse{} }
 func (m *ObjectListResponse) String() string { return proto.CompactTextString(m) }
 func (*ObjectListResponse) ProtoMessage()    {}
 func (*ObjectListResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5044922ea3425f24, []int{7}
+	return fileDescriptor_5044922ea3425f24, []int{14}
 }
 
 func (m *ObjectListResponse) XXX_Unmarshal(b []byte) error {
@@ -452,15 +756,144 @@ func (m *ObjectListResponse) GetEntity() []*ObjectEntity {
 	return nil
 }
 
+// 搜索对象的请求
+type ObjectSearchRequest struct {
+	Offset               int64    `protobuf:"varint,1,opt,name=offset,proto3" json:"offset,omitempty"`
+	Count                int64    `protobuf:"varint,2,opt,name=count,proto3" json:"count,omitempty"`
+	Bucket               string   `protobuf:"bytes,3,opt,name=bucket,proto3" json:"bucket,omitempty"`
+	Prefix               string   `protobuf:"bytes,4,opt,name=prefix,proto3" json:"prefix,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ObjectSearchRequest) Reset()         { *m = ObjectSearchRequest{} }
+func (m *ObjectSearchRequest) String() string { return proto.CompactTextString(m) }
+func (*ObjectSearchRequest) ProtoMessage()    {}
+func (*ObjectSearchRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5044922ea3425f24, []int{15}
+}
+
+func (m *ObjectSearchRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ObjectSearchRequest.Unmarshal(m, b)
+}
+func (m *ObjectSearchRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ObjectSearchRequest.Marshal(b, m, deterministic)
+}
+func (m *ObjectSearchRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ObjectSearchRequest.Merge(m, src)
+}
+func (m *ObjectSearchRequest) XXX_Size() int {
+	return xxx_messageInfo_ObjectSearchRequest.Size(m)
+}
+func (m *ObjectSearchRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ObjectSearchRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ObjectSearchRequest proto.InternalMessageInfo
+
+func (m *ObjectSearchRequest) GetOffset() int64 {
+	if m != nil {
+		return m.Offset
+	}
+	return 0
+}
+
+func (m *ObjectSearchRequest) GetCount() int64 {
+	if m != nil {
+		return m.Count
+	}
+	return 0
+}
+
+func (m *ObjectSearchRequest) GetBucket() string {
+	if m != nil {
+		return m.Bucket
+	}
+	return ""
+}
+
+func (m *ObjectSearchRequest) GetPrefix() string {
+	if m != nil {
+		return m.Prefix
+	}
+	return ""
+}
+
+// 搜索对象的回复
+type ObjectSearchResponse struct {
+	Status               *Status         `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	Total                uint64          `protobuf:"varint,2,opt,name=total,proto3" json:"total,omitempty"`
+	Entity               []*ObjectEntity `protobuf:"bytes,3,rep,name=entity,proto3" json:"entity,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}        `json:"-"`
+	XXX_unrecognized     []byte          `json:"-"`
+	XXX_sizecache        int32           `json:"-"`
+}
+
+func (m *ObjectSearchResponse) Reset()         { *m = ObjectSearchResponse{} }
+func (m *ObjectSearchResponse) String() string { return proto.CompactTextString(m) }
+func (*ObjectSearchResponse) ProtoMessage()    {}
+func (*ObjectSearchResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5044922ea3425f24, []int{16}
+}
+
+func (m *ObjectSearchResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ObjectSearchResponse.Unmarshal(m, b)
+}
+func (m *ObjectSearchResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ObjectSearchResponse.Marshal(b, m, deterministic)
+}
+func (m *ObjectSearchResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ObjectSearchResponse.Merge(m, src)
+}
+func (m *ObjectSearchResponse) XXX_Size() int {
+	return xxx_messageInfo_ObjectSearchResponse.Size(m)
+}
+func (m *ObjectSearchResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_ObjectSearchResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ObjectSearchResponse proto.InternalMessageInfo
+
+func (m *ObjectSearchResponse) GetStatus() *Status {
+	if m != nil {
+		return m.Status
+	}
+	return nil
+}
+
+func (m *ObjectSearchResponse) GetTotal() uint64 {
+	if m != nil {
+		return m.Total
+	}
+	return 0
+}
+
+func (m *ObjectSearchResponse) GetEntity() []*ObjectEntity {
+	if m != nil {
+		return m.Entity
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*ObjectPrepareRequest)(nil), "file.ObjectPrepareRequest")
 	proto.RegisterType((*ObjectPrepareResponse)(nil), "file.ObjectPrepareResponse")
 	proto.RegisterType((*ObjectFlushRequest)(nil), "file.ObjectFlushRequest")
+	proto.RegisterType((*ObjectPublishRequest)(nil), "file.ObjectPublishRequest")
+	proto.RegisterType((*ObjectPublishResponse)(nil), "file.ObjectPublishResponse")
+	proto.RegisterType((*ObjectPreviewRequest)(nil), "file.ObjectPreviewRequest")
+	proto.RegisterType((*ObjectPreviewResponse)(nil), "file.ObjectPreviewResponse")
+	proto.RegisterType((*ObjectRetractRequest)(nil), "file.ObjectRetractRequest")
 	proto.RegisterType((*ObjectGetRequest)(nil), "file.ObjectGetRequest")
 	proto.RegisterType((*ObjectGetResponse)(nil), "file.ObjectGetResponse")
+	proto.RegisterType((*ObjectFindRequest)(nil), "file.ObjectFindRequest")
+	proto.RegisterType((*ObjectFindResponse)(nil), "file.ObjectFindResponse")
 	proto.RegisterType((*ObjectRemoveRequest)(nil), "file.ObjectRemoveRequest")
 	proto.RegisterType((*ObjectListRequest)(nil), "file.ObjectListRequest")
 	proto.RegisterType((*ObjectListResponse)(nil), "file.ObjectListResponse")
+	proto.RegisterType((*ObjectSearchRequest)(nil), "file.ObjectSearchRequest")
+	proto.RegisterType((*ObjectSearchResponse)(nil), "file.ObjectSearchResponse")
 }
 
 func init() {
@@ -468,35 +901,46 @@ func init() {
 }
 
 var fileDescriptor_5044922ea3425f24 = []byte{
-	// 479 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x54, 0x4d, 0x6f, 0xd3, 0x40,
-	0x10, 0x25, 0xb5, 0xe3, 0xd2, 0x09, 0x42, 0x30, 0x0d, 0xad, 0x31, 0x97, 0x68, 0x85, 0x50, 0xc5,
-	0x21, 0x95, 0xc2, 0x05, 0xc1, 0x0d, 0x51, 0x2a, 0x24, 0x24, 0xd0, 0x82, 0x10, 0xd7, 0x8d, 0x33,
-	0x21, 0x26, 0xa9, 0xd7, 0xf5, 0xae, 0x11, 0x20, 0xfe, 0x0b, 0x3f, 0x84, 0x3f, 0x87, 0x3c, 0xbb,
-	0x2e, 0x6b, 0xca, 0x87, 0xc2, 0xcd, 0x33, 0xef, 0xcd, 0x9b, 0xd9, 0x37, 0x93, 0xc0, 0x61, 0x55,
-	0x6b, 0xab, 0x8f, 0x97, 0xc5, 0x86, 0x8e, 0xf5, 0xfc, 0x03, 0xe5, 0x76, 0xca, 0x19, 0x8c, 0xdb,
-	0x54, 0x16, 0xc2, 0x66, 0xa5, 0x6a, 0x5a, 0x38, 0x58, 0xbc, 0x83, 0xf1, 0x4b, 0xa6, 0xbf, 0xaa,
-	0xa9, 0x52, 0x35, 0x49, 0x3a, 0x6f, 0xc8, 0x58, 0x3c, 0x80, 0x64, 0xde, 0xe4, 0x6b, 0xb2, 0xe9,
-	0x60, 0x32, 0x38, 0xda, 0x93, 0x3e, 0xc2, 0x31, 0x0c, 0x9b, 0x52, 0x9d, 0x51, 0xba, 0xc3, 0x69,
-	0x17, 0x20, 0x42, 0x6c, 0x8a, 0x2f, 0x94, 0x46, 0x93, 0xc1, 0x51, 0x2c, 0xf9, 0x5b, 0x7c, 0x1b,
-	0xc0, 0xad, 0x5f, 0xa4, 0x4d, 0xa5, 0x4b, 0x43, 0x78, 0x17, 0x12, 0x63, 0x95, 0x6d, 0x0c, 0x6b,
-	0x8f, 0x66, 0xd7, 0xa6, 0xed, 0x5c, 0xd3, 0xd7, 0x9c, 0x93, 0x1e, 0x6b, 0x59, 0x54, 0xbe, 0x2f,
-	0x4a, 0xd7, 0xea, 0x7a, 0xc7, 0x3a, 0xe1, 0x9c, 0xf4, 0x18, 0xa6, 0xb0, 0xab, 0x16, 0x8b, 0x9a,
-	0x8c, 0xe1, 0xe6, 0x7b, 0xb2, 0x0b, 0x71, 0x02, 0x23, 0x95, 0xe7, 0x64, 0xcc, 0x1b, 0xbd, 0xa6,
-	0x32, 0x8d, 0x19, 0x0d, 0x53, 0xe2, 0x2d, 0xa0, 0x1b, 0xf0, 0xd9, 0xa6, 0x31, 0xab, 0xff, 0x7e,
-	0x79, 0xa5, 0xec, 0xca, 0x37, 0xe7, 0x6f, 0x71, 0x0f, 0x6e, 0x38, 0xdd, 0x53, 0xb2, 0x9d, 0x2a,
-	0x42, 0xdc, 0x34, 0xc5, 0xc2, 0x6b, 0xf2, 0xb7, 0x20, 0xb8, 0x19, 0xf0, 0xb6, 0x32, 0xe7, 0x7e,
-	0x6b, 0x8e, 0x2d, 0xec, 0x67, 0x9e, 0x66, 0x34, 0x43, 0xc7, 0x72, 0x72, 0x27, 0x8c, 0x48, 0xcf,
-	0x10, 0xcf, 0x61, 0xdf, 0xe5, 0x25, 0x9d, 0xe9, 0x8f, 0xff, 0xdc, 0x70, 0x06, 0x57, 0x5b, 0x2d,
-	0x7e, 0x95, 0x7b, 0xea, 0x45, 0x2c, 0xce, 0xbb, 0x89, 0x5f, 0x14, 0xc6, 0x06, 0x42, 0x7a, 0xb9,
-	0x34, 0x5e, 0x28, 0x92, 0x3e, 0x6a, 0x0d, 0xcb, 0x75, 0x53, 0x5a, 0x56, 0x89, 0xa4, 0x0b, 0x82,
-	0xb6, 0x51, 0xaf, 0xed, 0x01, 0x24, 0x55, 0x4d, 0xcb, 0xe2, 0x93, 0xdf, 0x94, 0x8f, 0xc4, 0xd7,
-	0x6e, 0x49, 0xae, 0xe5, 0x56, 0x2e, 0x8d, 0x61, 0x68, 0xb5, 0x55, 0x1b, 0x9e, 0x20, 0x96, 0x2e,
-	0x08, 0xbc, 0x8b, 0x26, 0xd1, 0xdf, 0xbd, 0x9b, 0x7d, 0xdf, 0x81, 0xc4, 0x01, 0xf8, 0x14, 0x76,
-	0xfd, 0x21, 0x63, 0x16, 0x56, 0xf4, 0x7f, 0x38, 0xd9, 0x9d, 0xdf, 0x62, 0x6e, 0x6c, 0x71, 0x05,
-	0x1f, 0xc2, 0x90, 0xaf, 0x0d, 0xd3, 0x90, 0x17, 0x1e, 0x60, 0xb6, 0xef, 0x90, 0x27, 0x1b, 0x55,
-	0xae, 0x7b, 0x95, 0xd1, 0x69, 0xeb, 0x53, 0x58, 0xf7, 0xf3, 0xc0, 0xb2, 0xc3, 0x4b, 0xf9, 0x8b,
-	0xca, 0x47, 0x90, 0xb8, 0xd5, 0xe3, 0xed, 0x90, 0xd4, 0x3b, 0x87, 0x3f, 0x75, 0x7d, 0x0c, 0x71,
-	0x6b, 0x3c, 0xf6, 0xe4, 0x83, 0xed, 0x67, 0xe9, 0x65, 0xa0, 0x2b, 0x9e, 0x27, 0xfc, 0x1f, 0xf3,
-	0xe0, 0x47, 0x00, 0x00, 0x00, 0xff, 0xff, 0x58, 0xfa, 0xe1, 0xd4, 0x9d, 0x04, 0x00, 0x00,
+	// 646 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xbc, 0x56, 0xcd, 0x6e, 0xd3, 0x40,
+	0x10, 0x6e, 0xb0, 0xe3, 0xd2, 0x29, 0x42, 0x65, 0x1b, 0xa8, 0x31, 0x97, 0x68, 0x85, 0x50, 0xe9,
+	0x21, 0x95, 0xc2, 0x05, 0x51, 0x2e, 0x54, 0xb4, 0xb9, 0x20, 0x15, 0xb9, 0x08, 0xc1, 0xd1, 0x71,
+	0x26, 0xc4, 0xc4, 0xb5, 0x8d, 0x77, 0x5d, 0x0a, 0x42, 0xdc, 0x78, 0x0e, 0x5e, 0x15, 0xed, 0x9f,
+	0xbb, 0x4e, 0xd2, 0x54, 0x41, 0x85, 0x53, 0x76, 0x7e, 0x76, 0xbe, 0x99, 0x6f, 0x66, 0xc7, 0x81,
+	0x9d, 0xa2, 0xcc, 0x79, 0xbe, 0x3f, 0x4e, 0x52, 0xdc, 0xcf, 0x87, 0x9f, 0x31, 0xe6, 0x3d, 0xa9,
+	0x21, 0xae, 0x50, 0x05, 0xb6, 0x99, 0x4d, 0xa2, 0x12, 0x47, 0xca, 0x4c, 0x3f, 0x40, 0xe7, 0x44,
+	0xba, 0xbf, 0x2d, 0xb1, 0x88, 0x4a, 0x0c, 0xf1, 0x4b, 0x85, 0x8c, 0x93, 0x07, 0xe0, 0x0d, 0xab,
+	0x78, 0x8a, 0xdc, 0x6f, 0x75, 0x5b, 0xbb, 0x1b, 0xa1, 0x96, 0x48, 0x07, 0xda, 0x55, 0x16, 0x9d,
+	0xa1, 0x7f, 0x4b, 0xaa, 0x95, 0x40, 0x08, 0xb8, 0x2c, 0xf9, 0x8e, 0xbe, 0xd3, 0x6d, 0xed, 0xba,
+	0xa1, 0x3c, 0xd3, 0xdf, 0x2d, 0xb8, 0x3f, 0x13, 0x9a, 0x15, 0x79, 0xc6, 0x90, 0x3c, 0x06, 0x8f,
+	0xf1, 0x88, 0x57, 0x4c, 0xc6, 0xde, 0xec, 0xdf, 0xe9, 0x89, 0xbc, 0x7a, 0xa7, 0x52, 0x17, 0x6a,
+	0x9b, 0xf0, 0xc2, 0xec, 0x53, 0x92, 0x29, 0xa8, 0xbb, 0xc6, 0xeb, 0x48, 0xea, 0x42, 0x6d, 0x23,
+	0x3e, 0xac, 0x47, 0xa3, 0x51, 0x89, 0x8c, 0x49, 0xf0, 0x8d, 0xd0, 0x88, 0xa4, 0x0b, 0x9b, 0x51,
+	0x1c, 0x23, 0x63, 0xef, 0xf2, 0x29, 0x66, 0xbe, 0x2b, 0xad, 0xb6, 0x8a, 0xbe, 0x07, 0xa2, 0x12,
+	0x3c, 0x4e, 0x2b, 0x36, 0xf9, 0xeb, 0xca, 0x8b, 0x88, 0x4f, 0x34, 0xb8, 0x3c, 0xd3, 0xc3, 0x9a,
+	0xd3, 0x6a, 0x98, 0x26, 0x97, 0x91, 0x09, 0xb8, 0x55, 0x95, 0x8c, 0x74, 0x5c, 0x79, 0x16, 0x68,
+	0x78, 0x51, 0x24, 0xe5, 0x37, 0x19, 0xd6, 0x0d, 0xb5, 0x44, 0x4f, 0x6a, 0xf2, 0x4c, 0x8c, 0x95,
+	0xc8, 0xdb, 0x02, 0xa7, 0x2a, 0x53, 0x9d, 0xaa, 0x38, 0xd2, 0x3d, 0xab, 0xd1, 0xe7, 0x09, 0x7e,
+	0x5d, 0x92, 0x94, 0x05, 0x6e, 0x7c, 0x6f, 0x0a, 0x3c, 0x44, 0x5e, 0x46, 0xe2, 0xe7, 0x6a, 0xf0,
+	0x27, 0xb0, 0xa5, 0x7c, 0x07, 0xb8, 0xd4, 0x0f, 0xe1, 0x9e, 0xe5, 0xb7, 0x52, 0x82, 0x7b, 0x62,
+	0xb4, 0x78, 0xc2, 0x15, 0xe9, 0x9b, 0x7d, 0xa2, 0xbc, 0x54, 0xb8, 0x23, 0x69, 0x09, 0xb5, 0x07,
+	0x1d, 0x18, 0x98, 0xe3, 0x24, 0x1b, 0x5d, 0x37, 0x23, 0x01, 0xdc, 0x16, 0x91, 0xe4, 0x44, 0xa8,
+	0xf2, 0x6b, 0x99, 0x8e, 0xeb, 0x69, 0x93, 0x81, 0xfe, 0x59, 0xc2, 0x4f, 0x61, 0xdb, 0x70, 0x7d,
+	0x96, 0x9f, 0xe3, 0x32, 0x0a, 0x3f, 0x9a, 0xda, 0xde, 0x24, 0x8c, 0x5b, 0xb5, 0xe5, 0xe3, 0x31,
+	0xd3, 0xb5, 0x39, 0xa1, 0x96, 0xc4, 0xfc, 0xc7, 0x79, 0x95, 0x71, 0x99, 0x82, 0x13, 0x2a, 0xc1,
+	0x62, 0xc2, 0xb1, 0x99, 0xa0, 0x3f, 0x4c, 0xb5, 0x2a, 0xf4, 0x4a, 0xd5, 0x76, 0xa0, 0xcd, 0x73,
+	0x1e, 0xa5, 0xfa, 0x49, 0x28, 0xc1, 0xe2, 0xc0, 0xe9, 0x3a, 0xd7, 0x70, 0xc0, 0x0c, 0x07, 0xa7,
+	0x18, 0x95, 0xf1, 0xe4, 0x46, 0x4b, 0x13, 0xfa, 0xa2, 0xc4, 0x71, 0x72, 0xa1, 0x77, 0x8a, 0x96,
+	0xe8, 0x4f, 0x33, 0xe4, 0x06, 0xf4, 0xff, 0x16, 0xdd, 0xff, 0xd5, 0x06, 0x4f, 0x19, 0xc8, 0x6b,
+	0x58, 0xd7, 0x4b, 0x97, 0x04, 0xf6, 0x8d, 0xe6, 0x92, 0x0f, 0x1e, 0x2d, 0xb4, 0xa9, 0xb4, 0xe9,
+	0x1a, 0x79, 0x0e, 0x6d, 0xb9, 0x19, 0x89, 0x6f, 0xfb, 0xd9, 0xcb, 0x32, 0xd8, 0x56, 0x96, 0xc3,
+	0x34, 0xca, 0xa6, 0x8d, 0x9b, 0xce, 0x40, 0x30, 0x65, 0xdf, 0xbb, 0x7c, 0xce, 0xc1, 0xce, 0x9c,
+	0xbe, 0xbe, 0x79, 0x00, 0xae, 0x78, 0x1f, 0xa4, 0xe1, 0x62, 0x3d, 0xbd, 0xc0, 0x9f, 0x37, 0xd4,
+	0x97, 0x5f, 0x80, 0xa7, 0x86, 0x9e, 0x3c, 0xb4, 0xbd, 0x1a, 0x0f, 0xe1, 0xaa, 0x94, 0x0f, 0xc0,
+	0x15, 0xa3, 0xda, 0x04, 0xb6, 0xde, 0x45, 0x13, 0xd8, 0x9e, 0x6a, 0xba, 0x46, 0x5e, 0x81, 0xa7,
+	0x9a, 0xde, 0x04, 0x6e, 0x4c, 0x5f, 0x10, 0x2c, 0x32, 0xd5, 0x21, 0x44, 0xcb, 0xd4, 0xaa, 0x9f,
+	0x69, 0x59, 0xe3, 0x1b, 0x32, 0xd3, 0xb2, 0xe6, 0xb7, 0x41, 0x47, 0x51, 0x3b, 0x7b, 0xae, 0xf1,
+	0xd6, 0xd2, 0x9f, 0x6b, 0xbc, 0xbd, 0xe4, 0xe9, 0x1a, 0x79, 0x09, 0xeb, 0x7a, 0x51, 0x2f, 0xcd,
+	0x65, 0x31, 0x93, 0x43, 0x4f, 0xfe, 0xb3, 0x78, 0xf6, 0x27, 0x00, 0x00, 0xff, 0xff, 0xb0, 0x18,
+	0x84, 0xf5, 0x93, 0x08, 0x00, 0x00,
 }
