@@ -2,7 +2,8 @@ syntax = "proto3";
 
 import "proto/file/shared.proto";
 
-package file;
+//package file;
+option go_package="proto/file;file";
 
 // 存储对象
 service Object

@@ -1,6 +1,7 @@
 syntax = "proto3";
 
-package file;
+//package file;
+option go_package="proto/file;file";
 
 // 健康
 service Healthy {
