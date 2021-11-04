@@ -3,15 +3,15 @@ syntax = "proto3";
 import "proto/file/shared.proto";
 
 //package file;
-option go_package="proto/file;file";
+option go_package = "proto/file;file";
 
 // 存储对象
 service Object
 {
     // 准备一个对象的元数据
-    rpc Prepare(ObjectPrepareRequest) returns (ObjectPrepareResponse) {}
+    rpc Prepare(ObjectPrepareRequest) returns (ObjectPrepareResponse) { }
     // 写入一个对象的元数据
-    rpc Flush(ObjectFlushRequest) returns (BlankResponse) {}
+    rpc Flush(ObjectFlushRequest) returns (BlankResponse) { }
     /*
     // 上传一个对象
     rpc Upload(stream ObjectUploadRequest) returns (BlankResponse) {}
@@ -21,26 +21,26 @@ service Object
     rpc Link(ObjectLinkRequest) returns (BlankResponse) {}
     */
     // 获取一个对象信息
-    rpc Get(ObjectGetRequest) returns (ObjectGetResponse) {}
+    rpc Get(ObjectGetRequest) returns (ObjectGetResponse) { }
     // 查找一个对象信息
-    rpc Find(ObjectFindRequest) returns (ObjectFindResponse) {}
+    rpc Find(ObjectFindRequest) returns (ObjectFindResponse) { }
     // 删除一个对象
-    rpc Remove(ObjectRemoveRequest) returns (BlankResponse) {}
+    rpc Remove(ObjectRemoveRequest) returns (BlankResponse) { }
     // 列举一个存储桶中的所有对象
     // 精确匹配
-    rpc List(ObjectListRequest) returns (ObjectListResponse) {}
+    rpc List(ObjectListRequest) returns (ObjectListResponse) { }
     // 搜索一个存储桶中的指定对象
     // 模糊匹配
-    rpc Search(ObjectSearchRequest) returns (ObjectSearchResponse) {}
+    rpc Search(ObjectSearchRequest) returns (ObjectSearchResponse) { }
     // 发布一个对象
     // 生成指定有效期的公开链接, 对象的URL有值
-    rpc Publish(ObjectPublishRequest) returns (ObjectPublishResponse) {}
+    rpc Publish(ObjectPublishRequest) returns (ObjectPublishResponse) { }
     // 预览一个对象
     // 生成临时的五分钟的公开链接, 对象的URL无值
-    rpc Preview(ObjectPreviewRequest) returns (ObjectPreviewResponse) {}
+    rpc Preview(ObjectPreviewRequest) returns (ObjectPreviewResponse) { }
     // 撤回一个对象
     // 撤回公开链接，对象的URL无值
-    rpc Retract(ObjectRetractRequest) returns (BlankResponse) {}
+    rpc Retract(ObjectRetractRequest) returns (BlankResponse) { }
 }
 
 // 准备对象元数据的请求
@@ -56,7 +56,7 @@ message ObjectPrepareResponse
 {
     Status status = 1;      // 状态
     Engine engine = 2;      // 存储引擎
-    string address = 3;     // 存储地址
+    string url = 3;         // 访问地址
     string accessToken = 4; // 访问令牌
 }
 
@@ -85,7 +85,7 @@ message ObjectPublishResponse
 // 预览对象的请求
 message ObjectPreviewRequest
 {
-    string uuid = 1;   // uuid
+    string uuid = 1; // uuid
 }
 
 // 预览对象的回复
@@ -98,7 +98,7 @@ message ObjectPreviewResponse
 // 撤回对象据的请求
 message ObjectRetractRequest
 {
-    string uuid = 1;   // uuid
+    string uuid = 1; // uuid
 }
 
 /*
@@ -151,7 +151,7 @@ message ObjectGetResponse
 // 查找对象的请求
 message ObjectFindRequest
 {
-    string bucket = 1; // 存储桶
+    string bucket = 1;   // 存储桶
     string filepath = 2; // 文件路径
 }
 
@@ -165,7 +165,7 @@ message ObjectFindResponse
 // 删除对象的请求
 message ObjectRemoveRequest
 {
-    string uuid = 1;   // uuid
+    string uuid = 1; // uuid
 }
 
 // 列举对象的请求
