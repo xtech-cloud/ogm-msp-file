@@ -3,27 +3,25 @@ syntax = "proto3";
 import "proto/file/shared.proto";
 
 //package file;
-option go_package="proto/file;file";
+option go_package = "proto/file;file";
 
 // 存储桶
 service Bucket
 {
     // 创建一个存储桶
-    rpc Make(BucketMakeRequest) returns (BlankResponse) {}
+    rpc Make(BucketMakeRequest) returns (BlankResponse) { }
     // 列举存储桶
-    rpc List(BucketListRequest) returns (BucketListResponse) {}
+    rpc List(BucketListRequest) returns (BucketListResponse) { }
     // 删除一个存储桶
-    rpc Remove(BucketRemoveRequest) returns (BlankResponse) {}
+    rpc Remove(BucketRemoveRequest) returns (BlankResponse) { }
     // 获取一个存储桶信息
-    rpc Get(BucketGetRequest) returns (BucketGetResponse) {}
+    rpc Get(BucketGetRequest) returns (BucketGetResponse) { }
     // 查找一个存储桶信息
-    rpc Find(BucketFindRequest) returns (BucketFindResponse) {}
-    // 更新一个存储桶的引擎
-    rpc UpdateEngine(BucketUpdateEngineRequest) returns (BlankResponse) {}
-    // 更新一个存储桶的容量
-    rpc UpdateCapacity(BucketUpdateCapacityRequest) returns (BlankResponse) {}
+    rpc Find(BucketFindRequest) returns (BucketFindResponse) { }
+    // 更新一个存储桶
+    rpc Update(BucketUpdateRequest) returns (BlankResponse) { }
     // 重置一个存储桶的访问令牌
-    rpc ResetToken(BucketResetTokenRequest) returns (BlankResponse) {}
+    rpc ResetToken(BucketResetTokenRequest) returns (BlankResponse) { }
 }
 
 // 创建存储桶的请求
@@ -85,22 +83,18 @@ message BucketFindResponse
     BucketEntity entity = 2; // 实体
 }
 
-// 更新存储桶引擎的请求
-message BucketUpdateEngineRequest
+// 更新存储桶的请求
+// 空值将不会被更新
+message BucketUpdateRequest
 {
-    string uuid = 1;         // uuid
-    Engine engine = 2;       // 存储引擎
-    string address = 3;      // 存储引擎的地址
-    string scope = 4;        // 存储引擎的作用范围
-    string accessKey = 5;    // 存储引擎的访问key
-    string accessSecret = 6; // 存储引擎的访问secret
-}
-
-// 更新存储桶的容量的请求
-message BucketUpdateCapacityRequest
-{
-    string uuid = 1;     // uuid
-    uint64 capacity = 2; // 容量，单位byte
+    string uuid = 1;         // 桶的UUID
+    string name = 2;         // 名称
+    uint64 capacity = 3;     // 初始容量
+    Engine engine = 4;       // 存储引擎
+    string address = 5;      // 存储引擎的地址
+    string scope = 6;        // 存储引擎的作用范围
+    string accessKey = 7;    // 存储引擎的访问key
+    string accessSecret = 8; // 存储引擎的访问secret
 }
 
 // 重置存储桶的访问令牌
