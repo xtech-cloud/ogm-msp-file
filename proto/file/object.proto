@@ -189,7 +189,7 @@ message ObjectSearchRequest
 {
     int64 offset = 1;  // 偏移值
     int64 count = 2;   // 数量
-    string bucket = 3; // 储存桶(name)
+    string bucket = 3; // 储存桶(UUID)
     string prefix = 4; // 路径前缀
 }
 

@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 //package file;
-option go_package="proto/file;file";
+option go_package = "proto/file;file";
 
 // 状态
 message Status
@@ -43,6 +43,7 @@ message BucketEntity
     string scope = 8;         // 作用范围
     string accessKey = 9;     // 存储引擎的访问Key
     string accessSecret = 10; // 存储引擎的访问Secret
+    string url = 21;          // 存储引擎的外部访问地址
 }
 
 // 对象实体
