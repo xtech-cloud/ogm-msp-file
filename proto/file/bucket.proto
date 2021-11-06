@@ -89,7 +89,9 @@ message BucketFindResponse
 // 模糊查找存储桶信息的请求
 message BucketSearchRequest
 {
-    string name = 1; // name
+    int64 offset = 1; // 偏移值
+    int64 count = 2;  // 数量
+    string name = 3;  // name
 }
 
 // 模糊查找存储桶信息的回复
