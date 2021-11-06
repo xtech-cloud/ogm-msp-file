@@ -96,7 +96,8 @@ message BucketSearchRequest
 message BucketSearchResponse
 {
     Status status = 1;                // 状态
-    repeated BucketEntity entity = 2; // 实体
+    uint64 total = 2;                 // 总数
+    repeated BucketEntity entity = 3; // 实体
 }
 
 // 更新存储桶的请求
