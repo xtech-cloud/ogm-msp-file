@@ -22,15 +22,13 @@ service Object
     */
     // 获取一个对象信息
     rpc Get(ObjectGetRequest) returns (ObjectGetResponse) { }
-    // 查找一个对象信息
+    // 精确查找一个对象信息
     rpc Find(ObjectFindRequest) returns (ObjectFindResponse) { }
     // 删除一个对象
     rpc Remove(ObjectRemoveRequest) returns (BlankResponse) { }
     // 列举一个存储桶中的所有对象
-    // 精确匹配
     rpc List(ObjectListRequest) returns (ObjectListResponse) { }
-    // 搜索一个存储桶中的指定对象
-    // 模糊匹配
+    // 模糊查找存储桶中的对象
     rpc Search(ObjectSearchRequest) returns (ObjectSearchResponse) { }
     // 发布一个对象
     // 生成指定有效期的公开链接, 对象的URL有值
@@ -63,7 +61,7 @@ message ObjectPrepareResponse
 // 写入对象元数据的请求
 message ObjectFlushRequest
 {
-    string bucket = 1; // 存储桶
+    string bucket = 1; // 存储桶(UUID)
     string uname = 2;  // 存储引擎中的唯一名
     string path = 3;   // 对象存储的路径
 }

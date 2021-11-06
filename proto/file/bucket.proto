@@ -16,8 +16,10 @@ service Bucket
     rpc Remove(BucketRemoveRequest) returns (BlankResponse) { }
     // 获取一个存储桶信息
     rpc Get(BucketGetRequest) returns (BucketGetResponse) { }
-    // 查找一个存储桶信息
+    // 精确查找一个存储桶信息
     rpc Find(BucketFindRequest) returns (BucketFindResponse) { }
+    // 模糊查找一个存储桶信息
+    rpc Search(BucketSearchRequest) returns (BucketSearchResponse) { }
     // 更新一个存储桶
     rpc Update(BucketUpdateRequest) returns (BlankResponse) { }
     // 重置一个存储桶的访问令牌
@@ -71,17 +73,30 @@ message BucketGetResponse
     BucketEntity entity = 2; // 实体
 }
 
-// 查找一个存储桶信息的请求
+// 精确查找一个存储桶信息的请求
 message BucketFindRequest
 {
     string name = 1; // name
 }
 
-// 查找一个存储桶信息的回复
+// 精确查找一个存储桶信息的回复
 message BucketFindResponse
 {
     Status status = 1;       // 状态
     BucketEntity entity = 2; // 实体
+}
+
+// 模糊查找存储桶信息的请求
+message BucketSearchRequest
+{
+    string name = 1; // name
+}
+
+// 模糊查找存储桶信息的回复
+message BucketSearchResponse
+{
+    Status status = 1;                // 状态
+    repeated BucketEntity entity = 2; // 实体
 }
 
 // 更新存储桶的请求

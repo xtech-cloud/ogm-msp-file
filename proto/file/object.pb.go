@@ -162,7 +162,7 @@ type ObjectFlushRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Bucket string `protobuf:"bytes,1,opt,name=bucket,proto3" json:"bucket,omitempty"` // 存储桶
+	Bucket string `protobuf:"bytes,1,opt,name=bucket,proto3" json:"bucket,omitempty"` // 存储桶(UUID)
 	Uname  string `protobuf:"bytes,2,opt,name=uname,proto3" json:"uname,omitempty"`   // 存储引擎中的唯一名
 	Path   string `protobuf:"bytes,3,opt,name=path,proto3" json:"path,omitempty"`     // 对象存储的路径
 }

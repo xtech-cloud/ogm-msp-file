@@ -44,8 +44,10 @@ type BucketService interface {
 	Remove(ctx context.Context, in *BucketRemoveRequest, opts ...client.CallOption) (*BlankResponse, error)
 	// 获取一个存储桶信息
 	Get(ctx context.Context, in *BucketGetRequest, opts ...client.CallOption) (*BucketGetResponse, error)
-	// 查找一个存储桶信息
+	// 精确查找一个存储桶信息
 	Find(ctx context.Context, in *BucketFindRequest, opts ...client.CallOption) (*BucketFindResponse, error)
+	// 模糊查找一个存储桶信息
+	Search(ctx context.Context, in *BucketSearchRequest, opts ...client.CallOption) (*BucketSearchResponse, error)
 	// 更新一个存储桶
 	Update(ctx context.Context, in *BucketUpdateRequest, opts ...client.CallOption) (*BlankResponse, error)
 	// 重置一个存储桶的访问令牌
@@ -114,6 +116,16 @@ func (c *bucketService) Find(ctx context.Context, in *BucketFindRequest, opts ..
 	return out, nil
 }
 
+func (c *bucketService) Search(ctx context.Context, in *BucketSearchRequest, opts ...client.CallOption) (*BucketSearchResponse, error) {
+	req := c.c.NewRequest(c.name, "Bucket.Search", in)
+	out := new(BucketSearchResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *bucketService) Update(ctx context.Context, in *BucketUpdateRequest, opts ...client.CallOption) (*BlankResponse, error) {
 	req := c.c.NewRequest(c.name, "Bucket.Update", in)
 	out := new(BlankResponse)
@@ -145,8 +157,10 @@ type BucketHandler interface {
 	Remove(context.Context, *BucketRemoveRequest, *BlankResponse) error
 	// 获取一个存储桶信息
 	Get(context.Context, *BucketGetRequest, *BucketGetResponse) error
-	// 查找一个存储桶信息
+	// 精确查找一个存储桶信息
 	Find(context.Context, *BucketFindRequest, *BucketFindResponse) error
+	// 模糊查找一个存储桶信息
+	Search(context.Context, *BucketSearchRequest, *BucketSearchResponse) error
 	// 更新一个存储桶
 	Update(context.Context, *BucketUpdateRequest, *BlankResponse) error
 	// 重置一个存储桶的访问令牌
@@ -160,6 +174,7 @@ func RegisterBucketHandler(s server.Server, hdlr BucketHandler, opts ...server.H
 		Remove(ctx context.Context, in *BucketRemoveRequest, out *BlankResponse) error
 		Get(ctx context.Context, in *BucketGetRequest, out *BucketGetResponse) error
 		Find(ctx context.Context, in *BucketFindRequest, out *BucketFindResponse) error
+		Search(ctx context.Context, in *BucketSearchRequest, out *BucketSearchResponse) error
 		Update(ctx context.Context, in *BucketUpdateRequest, out *BlankResponse) error
 		ResetToken(ctx context.Context, in *BucketResetTokenRequest, out *BlankResponse) error
 	}
@@ -192,6 +207,10 @@ func (h *bucketHandler) Get(ctx context.Context, in *BucketGetRequest, out *Buck
 
 func (h *bucketHandler) Find(ctx context.Context, in *BucketFindRequest, out *BucketFindResponse) error {
 	return h.BucketHandler.Find(ctx, in, out)
+}
+
+func (h *bucketHandler) Search(ctx context.Context, in *BucketSearchRequest, out *BucketSearchResponse) error {
+	return h.BucketHandler.Search(ctx, in, out)
 }
 
 func (h *bucketHandler) Update(ctx context.Context, in *BucketUpdateRequest, out *BlankResponse) error {

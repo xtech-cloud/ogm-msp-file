@@ -42,15 +42,13 @@ type ObjectService interface {
 	Flush(ctx context.Context, in *ObjectFlushRequest, opts ...client.CallOption) (*BlankResponse, error)
 	// 获取一个对象信息
 	Get(ctx context.Context, in *ObjectGetRequest, opts ...client.CallOption) (*ObjectGetResponse, error)
-	// 查找一个对象信息
+	// 精确查找一个对象信息
 	Find(ctx context.Context, in *ObjectFindRequest, opts ...client.CallOption) (*ObjectFindResponse, error)
 	// 删除一个对象
 	Remove(ctx context.Context, in *ObjectRemoveRequest, opts ...client.CallOption) (*BlankResponse, error)
 	// 列举一个存储桶中的所有对象
-	// 精确匹配
 	List(ctx context.Context, in *ObjectListRequest, opts ...client.CallOption) (*ObjectListResponse, error)
-	// 搜索一个存储桶中的指定对象
-	// 模糊匹配
+	// 模糊查找存储桶中的对象
 	Search(ctx context.Context, in *ObjectSearchRequest, opts ...client.CallOption) (*ObjectSearchResponse, error)
 	// 发布一个对象
 	// 生成指定有效期的公开链接, 对象的URL有值
@@ -184,15 +182,13 @@ type ObjectHandler interface {
 	Flush(context.Context, *ObjectFlushRequest, *BlankResponse) error
 	// 获取一个对象信息
 	Get(context.Context, *ObjectGetRequest, *ObjectGetResponse) error
-	// 查找一个对象信息
+	// 精确查找一个对象信息
 	Find(context.Context, *ObjectFindRequest, *ObjectFindResponse) error
 	// 删除一个对象
 	Remove(context.Context, *ObjectRemoveRequest, *BlankResponse) error
 	// 列举一个存储桶中的所有对象
-	// 精确匹配
 	List(context.Context, *ObjectListRequest, *ObjectListResponse) error
-	// 搜索一个存储桶中的指定对象
-	// 模糊匹配
+	// 模糊查找存储桶中的对象
 	Search(context.Context, *ObjectSearchRequest, *ObjectSearchResponse) error
 	// 发布一个对象
 	// 生成指定有效期的公开链接, 对象的URL有值
