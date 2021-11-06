@@ -189,6 +189,7 @@ message ObjectSearchRequest
     int64 count = 2;   // 数量
     string bucket = 3; // 储存桶(UUID)
     string prefix = 4; // 路径前缀
+    string name = 5;   // 名称
 }
 
 // 搜索对象的回复
