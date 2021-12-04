@@ -39,13 +39,13 @@ type ObjectService interface {
 	// 准备一个对象的元数据
 	Prepare(ctx context.Context, in *ObjectPrepareRequest, opts ...client.CallOption) (*ObjectPrepareResponse, error)
 	// 写入一个对象的元数据
-	Flush(ctx context.Context, in *ObjectFlushRequest, opts ...client.CallOption) (*BlankResponse, error)
+	Flush(ctx context.Context, in *ObjectFlushRequest, opts ...client.CallOption) (*UuidResponse, error)
 	// 获取一个对象信息
 	Get(ctx context.Context, in *ObjectGetRequest, opts ...client.CallOption) (*ObjectGetResponse, error)
 	// 精确查找一个对象信息
 	Find(ctx context.Context, in *ObjectFindRequest, opts ...client.CallOption) (*ObjectFindResponse, error)
 	// 删除一个对象
-	Remove(ctx context.Context, in *ObjectRemoveRequest, opts ...client.CallOption) (*BlankResponse, error)
+	Remove(ctx context.Context, in *ObjectRemoveRequest, opts ...client.CallOption) (*UuidResponse, error)
 	// 列举一个存储桶中的所有对象
 	List(ctx context.Context, in *ObjectListRequest, opts ...client.CallOption) (*ObjectListResponse, error)
 	// 模糊查找存储桶中的对象
@@ -58,7 +58,7 @@ type ObjectService interface {
 	Preview(ctx context.Context, in *ObjectPreviewRequest, opts ...client.CallOption) (*ObjectPreviewResponse, error)
 	// 撤回一个对象
 	// 撤回公开链接，对象的URL无值
-	Retract(ctx context.Context, in *ObjectRetractRequest, opts ...client.CallOption) (*BlankResponse, error)
+	Retract(ctx context.Context, in *ObjectRetractRequest, opts ...client.CallOption) (*UuidResponse, error)
 }
 
 type objectService struct {
@@ -83,9 +83,9 @@ func (c *objectService) Prepare(ctx context.Context, in *ObjectPrepareRequest, o
 	return out, nil
 }
 
-func (c *objectService) Flush(ctx context.Context, in *ObjectFlushRequest, opts ...client.CallOption) (*BlankResponse, error) {
+func (c *objectService) Flush(ctx context.Context, in *ObjectFlushRequest, opts ...client.CallOption) (*UuidResponse, error) {
 	req := c.c.NewRequest(c.name, "Object.Flush", in)
-	out := new(BlankResponse)
+	out := new(UuidResponse)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
 		return nil, err
@@ -113,9 +113,9 @@ func (c *objectService) Find(ctx context.Context, in *ObjectFindRequest, opts ..
 	return out, nil
 }
 
-func (c *objectService) Remove(ctx context.Context, in *ObjectRemoveRequest, opts ...client.CallOption) (*BlankResponse, error) {
+func (c *objectService) Remove(ctx context.Context, in *ObjectRemoveRequest, opts ...client.CallOption) (*UuidResponse, error) {
 	req := c.c.NewRequest(c.name, "Object.Remove", in)
-	out := new(BlankResponse)
+	out := new(UuidResponse)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
 		return nil, err
@@ -163,9 +163,9 @@ func (c *objectService) Preview(ctx context.Context, in *ObjectPreviewRequest, o
 	return out, nil
 }
 
-func (c *objectService) Retract(ctx context.Context, in *ObjectRetractRequest, opts ...client.CallOption) (*BlankResponse, error) {
+func (c *objectService) Retract(ctx context.Context, in *ObjectRetractRequest, opts ...client.CallOption) (*UuidResponse, error) {
 	req := c.c.NewRequest(c.name, "Object.Retract", in)
-	out := new(BlankResponse)
+	out := new(UuidResponse)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
 		return nil, err
@@ -179,13 +179,13 @@ type ObjectHandler interface {
 	// 准备一个对象的元数据
 	Prepare(context.Context, *ObjectPrepareRequest, *ObjectPrepareResponse) error
 	// 写入一个对象的元数据
-	Flush(context.Context, *ObjectFlushRequest, *BlankResponse) error
+	Flush(context.Context, *ObjectFlushRequest, *UuidResponse) error
 	// 获取一个对象信息
 	Get(context.Context, *ObjectGetRequest, *ObjectGetResponse) error
 	// 精确查找一个对象信息
 	Find(context.Context, *ObjectFindRequest, *ObjectFindResponse) error
 	// 删除一个对象
-	Remove(context.Context, *ObjectRemoveRequest, *BlankResponse) error
+	Remove(context.Context, *ObjectRemoveRequest, *UuidResponse) error
 	// 列举一个存储桶中的所有对象
 	List(context.Context, *ObjectListRequest, *ObjectListResponse) error
 	// 模糊查找存储桶中的对象
@@ -198,21 +198,21 @@ type ObjectHandler interface {
 	Preview(context.Context, *ObjectPreviewRequest, *ObjectPreviewResponse) error
 	// 撤回一个对象
 	// 撤回公开链接，对象的URL无值
-	Retract(context.Context, *ObjectRetractRequest, *BlankResponse) error
+	Retract(context.Context, *ObjectRetractRequest, *UuidResponse) error
 }
 
 func RegisterObjectHandler(s server.Server, hdlr ObjectHandler, opts ...server.HandlerOption) error {
 	type object interface {
 		Prepare(ctx context.Context, in *ObjectPrepareRequest, out *ObjectPrepareResponse) error
-		Flush(ctx context.Context, in *ObjectFlushRequest, out *BlankResponse) error
+		Flush(ctx context.Context, in *ObjectFlushRequest, out *UuidResponse) error
 		Get(ctx context.Context, in *ObjectGetRequest, out *ObjectGetResponse) error
 		Find(ctx context.Context, in *ObjectFindRequest, out *ObjectFindResponse) error
-		Remove(ctx context.Context, in *ObjectRemoveRequest, out *BlankResponse) error
+		Remove(ctx context.Context, in *ObjectRemoveRequest, out *UuidResponse) error
 		List(ctx context.Context, in *ObjectListRequest, out *ObjectListResponse) error
 		Search(ctx context.Context, in *ObjectSearchRequest, out *ObjectSearchResponse) error
 		Publish(ctx context.Context, in *ObjectPublishRequest, out *ObjectPublishResponse) error
 		Preview(ctx context.Context, in *ObjectPreviewRequest, out *ObjectPreviewResponse) error
-		Retract(ctx context.Context, in *ObjectRetractRequest, out *BlankResponse) error
+		Retract(ctx context.Context, in *ObjectRetractRequest, out *UuidResponse) error
 	}
 	type Object struct {
 		object
@@ -229,7 +229,7 @@ func (h *objectHandler) Prepare(ctx context.Context, in *ObjectPrepareRequest, o
 	return h.ObjectHandler.Prepare(ctx, in, out)
 }
 
-func (h *objectHandler) Flush(ctx context.Context, in *ObjectFlushRequest, out *BlankResponse) error {
+func (h *objectHandler) Flush(ctx context.Context, in *ObjectFlushRequest, out *UuidResponse) error {
 	return h.ObjectHandler.Flush(ctx, in, out)
 }
 
@@ -241,7 +241,7 @@ func (h *objectHandler) Find(ctx context.Context, in *ObjectFindRequest, out *Ob
 	return h.ObjectHandler.Find(ctx, in, out)
 }
 
-func (h *objectHandler) Remove(ctx context.Context, in *ObjectRemoveRequest, out *BlankResponse) error {
+func (h *objectHandler) Remove(ctx context.Context, in *ObjectRemoveRequest, out *UuidResponse) error {
 	return h.ObjectHandler.Remove(ctx, in, out)
 }
 
@@ -261,6 +261,6 @@ func (h *objectHandler) Preview(ctx context.Context, in *ObjectPreviewRequest, o
 	return h.ObjectHandler.Preview(ctx, in, out)
 }
 
-func (h *objectHandler) Retract(ctx context.Context, in *ObjectRetractRequest, out *BlankResponse) error {
+func (h *objectHandler) Retract(ctx context.Context, in *ObjectRetractRequest, out *UuidResponse) error {
 	return h.ObjectHandler.Retract(ctx, in, out)
 }

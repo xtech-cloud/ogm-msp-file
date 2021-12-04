@@ -9,11 +9,11 @@ option go_package = "proto/file;file";
 service Bucket
 {
     // 创建一个存储桶
-    rpc Make(BucketMakeRequest) returns (BlankResponse) { }
+    rpc Make(BucketMakeRequest) returns (UuidResponse) { }
     // 列举存储桶
     rpc List(BucketListRequest) returns (BucketListResponse) { }
     // 删除一个存储桶
-    rpc Remove(BucketRemoveRequest) returns (BlankResponse) { }
+    rpc Remove(BucketRemoveRequest) returns (UuidResponse) { }
     // 获取一个存储桶信息
     rpc Get(BucketGetRequest) returns (BucketGetResponse) { }
     // 精确查找一个存储桶信息
@@ -21,9 +21,9 @@ service Bucket
     // 模糊查找一个存储桶信息
     rpc Search(BucketSearchRequest) returns (BucketSearchResponse) { }
     // 更新一个存储桶
-    rpc Update(BucketUpdateRequest) returns (BlankResponse) { }
+    rpc Update(BucketUpdateRequest) returns (UuidResponse) { }
     // 重置一个存储桶的访问令牌
-    rpc ResetToken(BucketResetTokenRequest) returns (BlankResponse) { }
+    rpc ResetToken(BucketResetTokenRequest) returns (UuidResponse) { }
 }
 
 // 创建存储桶的请求

@@ -21,6 +21,13 @@ message BlankResponse
     Status status = 1; // 状态
 }
 
+// Uuid回复
+message UuidResponse
+{
+    Status status = 1; // 状态
+    string uuid = 2;   // uuid
+}
+
 // 存储引擎
 enum Engine {
     ENGINE_INVALID = 0;  // 无效

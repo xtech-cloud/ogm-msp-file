@@ -37,11 +37,11 @@ func NewBucketEndpoints() []*api.Endpoint {
 
 type BucketService interface {
 	// 创建一个存储桶
-	Make(ctx context.Context, in *BucketMakeRequest, opts ...client.CallOption) (*BlankResponse, error)
+	Make(ctx context.Context, in *BucketMakeRequest, opts ...client.CallOption) (*UuidResponse, error)
 	// 列举存储桶
 	List(ctx context.Context, in *BucketListRequest, opts ...client.CallOption) (*BucketListResponse, error)
 	// 删除一个存储桶
-	Remove(ctx context.Context, in *BucketRemoveRequest, opts ...client.CallOption) (*BlankResponse, error)
+	Remove(ctx context.Context, in *BucketRemoveRequest, opts ...client.CallOption) (*UuidResponse, error)
 	// 获取一个存储桶信息
 	Get(ctx context.Context, in *BucketGetRequest, opts ...client.CallOption) (*BucketGetResponse, error)
 	// 精确查找一个存储桶信息
@@ -49,9 +49,9 @@ type BucketService interface {
 	// 模糊查找一个存储桶信息
 	Search(ctx context.Context, in *BucketSearchRequest, opts ...client.CallOption) (*BucketSearchResponse, error)
 	// 更新一个存储桶
-	Update(ctx context.Context, in *BucketUpdateRequest, opts ...client.CallOption) (*BlankResponse, error)
+	Update(ctx context.Context, in *BucketUpdateRequest, opts ...client.CallOption) (*UuidResponse, error)
 	// 重置一个存储桶的访问令牌
-	ResetToken(ctx context.Context, in *BucketResetTokenRequest, opts ...client.CallOption) (*BlankResponse, error)
+	ResetToken(ctx context.Context, in *BucketResetTokenRequest, opts ...client.CallOption) (*UuidResponse, error)
 }
 
 type bucketService struct {
@@ -66,9 +66,9 @@ func NewBucketService(name string, c client.Client) BucketService {
 	}
 }
 
-func (c *bucketService) Make(ctx context.Context, in *BucketMakeRequest, opts ...client.CallOption) (*BlankResponse, error) {
+func (c *bucketService) Make(ctx context.Context, in *BucketMakeRequest, opts ...client.CallOption) (*UuidResponse, error) {
 	req := c.c.NewRequest(c.name, "Bucket.Make", in)
-	out := new(BlankResponse)
+	out := new(UuidResponse)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
 		return nil, err
@@ -86,9 +86,9 @@ func (c *bucketService) List(ctx context.Context, in *BucketListRequest, opts ..
 	return out, nil
 }
 
-func (c *bucketService) Remove(ctx context.Context, in *BucketRemoveRequest, opts ...client.CallOption) (*BlankResponse, error) {
+func (c *bucketService) Remove(ctx context.Context, in *BucketRemoveRequest, opts ...client.CallOption) (*UuidResponse, error) {
 	req := c.c.NewRequest(c.name, "Bucket.Remove", in)
-	out := new(BlankResponse)
+	out := new(UuidResponse)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
 		return nil, err
@@ -126,9 +126,9 @@ func (c *bucketService) Search(ctx context.Context, in *BucketSearchRequest, opt
 	return out, nil
 }
 
-func (c *bucketService) Update(ctx context.Context, in *BucketUpdateRequest, opts ...client.CallOption) (*BlankResponse, error) {
+func (c *bucketService) Update(ctx context.Context, in *BucketUpdateRequest, opts ...client.CallOption) (*UuidResponse, error) {
 	req := c.c.NewRequest(c.name, "Bucket.Update", in)
-	out := new(BlankResponse)
+	out := new(UuidResponse)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
 		return nil, err
@@ -136,9 +136,9 @@ func (c *bucketService) Update(ctx context.Context, in *BucketUpdateRequest, opt
 	return out, nil
 }
 
-func (c *bucketService) ResetToken(ctx context.Context, in *BucketResetTokenRequest, opts ...client.CallOption) (*BlankResponse, error) {
+func (c *bucketService) ResetToken(ctx context.Context, in *BucketResetTokenRequest, opts ...client.CallOption) (*UuidResponse, error) {
 	req := c.c.NewRequest(c.name, "Bucket.ResetToken", in)
-	out := new(BlankResponse)
+	out := new(UuidResponse)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
 		return nil, err
@@ -150,11 +150,11 @@ func (c *bucketService) ResetToken(ctx context.Context, in *BucketResetTokenRequ
 
 type BucketHandler interface {
 	// 创建一个存储桶
-	Make(context.Context, *BucketMakeRequest, *BlankResponse) error
+	Make(context.Context, *BucketMakeRequest, *UuidResponse) error
 	// 列举存储桶
 	List(context.Context, *BucketListRequest, *BucketListResponse) error
 	// 删除一个存储桶
-	Remove(context.Context, *BucketRemoveRequest, *BlankResponse) error
+	Remove(context.Context, *BucketRemoveRequest, *UuidResponse) error
 	// 获取一个存储桶信息
 	Get(context.Context, *BucketGetRequest, *BucketGetResponse) error
 	// 精确查找一个存储桶信息
@@ -162,21 +162,21 @@ type BucketHandler interface {
 	// 模糊查找一个存储桶信息
 	Search(context.Context, *BucketSearchRequest, *BucketSearchResponse) error
 	// 更新一个存储桶
-	Update(context.Context, *BucketUpdateRequest, *BlankResponse) error
+	Update(context.Context, *BucketUpdateRequest, *UuidResponse) error
 	// 重置一个存储桶的访问令牌
-	ResetToken(context.Context, *BucketResetTokenRequest, *BlankResponse) error
+	ResetToken(context.Context, *BucketResetTokenRequest, *UuidResponse) error
 }
 
 func RegisterBucketHandler(s server.Server, hdlr BucketHandler, opts ...server.HandlerOption) error {
 	type bucket interface {
-		Make(ctx context.Context, in *BucketMakeRequest, out *BlankResponse) error
+		Make(ctx context.Context, in *BucketMakeRequest, out *UuidResponse) error
 		List(ctx context.Context, in *BucketListRequest, out *BucketListResponse) error
-		Remove(ctx context.Context, in *BucketRemoveRequest, out *BlankResponse) error
+		Remove(ctx context.Context, in *BucketRemoveRequest, out *UuidResponse) error
 		Get(ctx context.Context, in *BucketGetRequest, out *BucketGetResponse) error
 		Find(ctx context.Context, in *BucketFindRequest, out *BucketFindResponse) error
 		Search(ctx context.Context, in *BucketSearchRequest, out *BucketSearchResponse) error
-		Update(ctx context.Context, in *BucketUpdateRequest, out *BlankResponse) error
-		ResetToken(ctx context.Context, in *BucketResetTokenRequest, out *BlankResponse) error
+		Update(ctx context.Context, in *BucketUpdateRequest, out *UuidResponse) error
+		ResetToken(ctx context.Context, in *BucketResetTokenRequest, out *UuidResponse) error
 	}
 	type Bucket struct {
 		bucket
@@ -189,7 +189,7 @@ type bucketHandler struct {
 	BucketHandler
 }
 
-func (h *bucketHandler) Make(ctx context.Context, in *BucketMakeRequest, out *BlankResponse) error {
+func (h *bucketHandler) Make(ctx context.Context, in *BucketMakeRequest, out *UuidResponse) error {
 	return h.BucketHandler.Make(ctx, in, out)
 }
 
@@ -197,7 +197,7 @@ func (h *bucketHandler) List(ctx context.Context, in *BucketListRequest, out *Bu
 	return h.BucketHandler.List(ctx, in, out)
 }
 
-func (h *bucketHandler) Remove(ctx context.Context, in *BucketRemoveRequest, out *BlankResponse) error {
+func (h *bucketHandler) Remove(ctx context.Context, in *BucketRemoveRequest, out *UuidResponse) error {
 	return h.BucketHandler.Remove(ctx, in, out)
 }
 
@@ -213,10 +213,10 @@ func (h *bucketHandler) Search(ctx context.Context, in *BucketSearchRequest, out
 	return h.BucketHandler.Search(ctx, in, out)
 }
 
-func (h *bucketHandler) Update(ctx context.Context, in *BucketUpdateRequest, out *BlankResponse) error {
+func (h *bucketHandler) Update(ctx context.Context, in *BucketUpdateRequest, out *UuidResponse) error {
 	return h.BucketHandler.Update(ctx, in, out)
 }
 
-func (h *bucketHandler) ResetToken(ctx context.Context, in *BucketResetTokenRequest, out *BlankResponse) error {
+func (h *bucketHandler) ResetToken(ctx context.Context, in *BucketResetTokenRequest, out *UuidResponse) error {
 	return h.BucketHandler.ResetToken(ctx, in, out)
 }

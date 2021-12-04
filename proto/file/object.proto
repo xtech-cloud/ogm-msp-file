@@ -11,7 +11,7 @@ service Object
     // 准备一个对象的元数据
     rpc Prepare(ObjectPrepareRequest) returns (ObjectPrepareResponse) { }
     // 写入一个对象的元数据
-    rpc Flush(ObjectFlushRequest) returns (BlankResponse) { }
+    rpc Flush(ObjectFlushRequest) returns (UuidResponse) { }
     /*
     // 上传一个对象
     rpc Upload(stream ObjectUploadRequest) returns (BlankResponse) {}
@@ -25,7 +25,7 @@ service Object
     // 精确查找一个对象信息
     rpc Find(ObjectFindRequest) returns (ObjectFindResponse) { }
     // 删除一个对象
-    rpc Remove(ObjectRemoveRequest) returns (BlankResponse) { }
+    rpc Remove(ObjectRemoveRequest) returns (UuidResponse) { }
     // 列举一个存储桶中的所有对象
     rpc List(ObjectListRequest) returns (ObjectListResponse) { }
     // 模糊查找存储桶中的对象
@@ -38,7 +38,7 @@ service Object
     rpc Preview(ObjectPreviewRequest) returns (ObjectPreviewResponse) { }
     // 撤回一个对象
     // 撤回公开链接，对象的URL无值
-    rpc Retract(ObjectRetractRequest) returns (BlankResponse) { }
+    rpc Retract(ObjectRetractRequest) returns (UuidResponse) { }
 }
 
 // 准备对象元数据的请求
