@@ -61,4 +61,5 @@ message ObjectEntity
     string url = 3;      // 地址
     uint64 size = 4;     // 文件大小
     string md5 = 5;      // MD5值
+    string uname = 6;    // 存储名
 }

@@ -47,6 +47,7 @@ message ObjectPrepareRequest
     string bucket = 1; // 存储桶
     string uname = 2;  // 存储引擎中的唯一名
     uint64 size = 3;   // 对象大小
+    int64 expiry = 4;  //令牌有效期
 }
 
 // 准备对象的回复
