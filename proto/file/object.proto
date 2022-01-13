@@ -34,7 +34,7 @@ service Object
     // 生成指定有效期的公开链接, 对象的URL有值
     rpc Publish(ObjectPublishRequest) returns (ObjectPublishResponse) { }
     // 预览一个对象
-    // 生成临时的五分钟的公开链接, 对象的URL无值
+    // 生成临时的公开链接, 对象的URL无值
     rpc Preview(ObjectPreviewRequest) returns (ObjectPreviewResponse) { }
     // 撤回一个对象
     // 撤回公开链接，对象的URL无值
@@ -64,6 +64,7 @@ message ObjectFlushRequest
     string bucket = 1; // 存储桶(UUID)
     string uname = 2;  // 存储引擎中的唯一名
     string path = 3;   // 对象存储的路径
+    string md5 = 4;    // 对象的MD5值
 }
 
 // 发布对象的请求
@@ -83,7 +84,8 @@ message ObjectPublishResponse
 // 预览对象的请求
 message ObjectPreviewRequest
 {
-    string uuid = 1; // uuid
+    string uuid = 1;  // uuid
+    int64 expiry = 2; // 过期时间（单位：秒）
 }
 
 // 预览对象的回复

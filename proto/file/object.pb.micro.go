@@ -54,7 +54,7 @@ type ObjectService interface {
 	// 生成指定有效期的公开链接, 对象的URL有值
 	Publish(ctx context.Context, in *ObjectPublishRequest, opts ...client.CallOption) (*ObjectPublishResponse, error)
 	// 预览一个对象
-	// 生成临时的五分钟的公开链接, 对象的URL无值
+	// 生成临时的公开链接, 对象的URL无值
 	Preview(ctx context.Context, in *ObjectPreviewRequest, opts ...client.CallOption) (*ObjectPreviewResponse, error)
 	// 撤回一个对象
 	// 撤回公开链接，对象的URL无值
@@ -194,7 +194,7 @@ type ObjectHandler interface {
 	// 生成指定有效期的公开链接, 对象的URL有值
 	Publish(context.Context, *ObjectPublishRequest, *ObjectPublishResponse) error
 	// 预览一个对象
-	// 生成临时的五分钟的公开链接, 对象的URL无值
+	// 生成临时的公开链接, 对象的URL无值
 	Preview(context.Context, *ObjectPreviewRequest, *ObjectPreviewResponse) error
 	// 撤回一个对象
 	// 撤回公开链接，对象的URL无值
