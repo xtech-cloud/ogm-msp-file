@@ -132,7 +132,8 @@ message BucketGenerateManifestRequest
     string format = 3;           // 清单格式,可选值为(json)
     string template = 4;         // 模板，生成内容会替换模板中$content$变量
     string saveAs = 5;           // 保存在桶中的文件名,如果不为空，回复中的result字段为清单地址，如果为空，回复中的result为清单内容
-    repeated string exclude = 6; // 排除文件，支持通配符
+    repeated string include = 6; // 包含文件，支持通配符，空值时返回所有对象
+    repeated string exclude = 7; // 排除文件，支持通配符，运算顺序在include之后
 }
 
 message BucketGenerateManifestResponse
