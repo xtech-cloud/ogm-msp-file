@@ -24,6 +24,8 @@ service Bucket
     rpc Update(BucketUpdateRequest) returns (UuidResponse) { }
     // 重置一个存储桶的访问令牌
     rpc ResetToken(BucketResetTokenRequest) returns (UuidResponse) { }
+    // 生成清单
+    rpc GenerateManifest(BucketGenerateManifestRequest) returns (BucketGenerateManifestResponse) { }
 }
 
 // 创建存储桶的请求
@@ -121,4 +123,17 @@ message BucketUpdateRequest
 message BucketResetTokenRequest
 {
     string uuid = 1; // uuid
+}
+
+message BucketGenerateManifestRequest
+{
+    string uuid = 1;   // 桶的UUID
+    string rule = 2;   // 规则表达式
+    string saveAs = 3; // 保存在桶中的文件名,如果不为空，回复中的result字段为清单地址，如果为空，回复中的result为清单内容
+}
+
+message BucketGenerateManifestResponse
+{
+    Status status = 1; // 状态
+    string result = 2; // 生成结果
 }

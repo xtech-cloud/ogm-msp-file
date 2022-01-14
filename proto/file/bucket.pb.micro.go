@@ -52,6 +52,8 @@ type BucketService interface {
 	Update(ctx context.Context, in *BucketUpdateRequest, opts ...client.CallOption) (*UuidResponse, error)
 	// 重置一个存储桶的访问令牌
 	ResetToken(ctx context.Context, in *BucketResetTokenRequest, opts ...client.CallOption) (*UuidResponse, error)
+	// 生成清单
+	GenerateManifest(ctx context.Context, in *BucketGenerateManifestRequest, opts ...client.CallOption) (*BucketGenerateManifestResponse, error)
 }
 
 type bucketService struct {
@@ -146,6 +148,16 @@ func (c *bucketService) ResetToken(ctx context.Context, in *BucketResetTokenRequ
 	return out, nil
 }
 
+func (c *bucketService) GenerateManifest(ctx context.Context, in *BucketGenerateManifestRequest, opts ...client.CallOption) (*BucketGenerateManifestResponse, error) {
+	req := c.c.NewRequest(c.name, "Bucket.GenerateManifest", in)
+	out := new(BucketGenerateManifestResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // Server API for Bucket service
 
 type BucketHandler interface {
@@ -165,6 +177,8 @@ type BucketHandler interface {
 	Update(context.Context, *BucketUpdateRequest, *UuidResponse) error
 	// 重置一个存储桶的访问令牌
 	ResetToken(context.Context, *BucketResetTokenRequest, *UuidResponse) error
+	// 生成清单
+	GenerateManifest(context.Context, *BucketGenerateManifestRequest, *BucketGenerateManifestResponse) error
 }
 
 func RegisterBucketHandler(s server.Server, hdlr BucketHandler, opts ...server.HandlerOption) error {
@@ -177,6 +191,7 @@ func RegisterBucketHandler(s server.Server, hdlr BucketHandler, opts ...server.H
 		Search(ctx context.Context, in *BucketSearchRequest, out *BucketSearchResponse) error
 		Update(ctx context.Context, in *BucketUpdateRequest, out *UuidResponse) error
 		ResetToken(ctx context.Context, in *BucketResetTokenRequest, out *UuidResponse) error
+		GenerateManifest(ctx context.Context, in *BucketGenerateManifestRequest, out *BucketGenerateManifestResponse) error
 	}
 	type Bucket struct {
 		bucket
@@ -219,4 +234,8 @@ func (h *bucketHandler) Update(ctx context.Context, in *BucketUpdateRequest, out
 
 func (h *bucketHandler) ResetToken(ctx context.Context, in *BucketResetTokenRequest, out *UuidResponse) error {
 	return h.BucketHandler.ResetToken(ctx, in, out)
+}
+
+func (h *bucketHandler) GenerateManifest(ctx context.Context, in *BucketGenerateManifestRequest, out *BucketGenerateManifestResponse) error {
+	return h.BucketHandler.GenerateManifest(ctx, in, out)
 }
