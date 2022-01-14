@@ -127,9 +127,11 @@ message BucketResetTokenRequest
 
 message BucketGenerateManifestRequest
 {
-    string uuid = 1;   // 桶的UUID
-    string rule = 2;   // 规则表达式
-    string saveAs = 3; // 保存在桶中的文件名,如果不为空，回复中的result字段为清单地址，如果为空，回复中的result为清单内容
+    string uuid = 1;           // 桶的UUID
+    repeated string field = 2; // 清单中包含的字段，可选值为(filepath,uname,url,md5,size)
+    string format = 3;         // 清单格式,可选值为(json)
+    string template = 4;       // 模板，生成内容会替换模板中{{content}}字段
+    string saveAs = 5;         // 保存在桶中的文件名,如果不为空，回复中的result字段为清单地址，如果为空，回复中的result为清单内容
 }
 
 message BucketGenerateManifestResponse
