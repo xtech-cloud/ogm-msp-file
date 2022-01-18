@@ -209,7 +209,7 @@ message ObjectSearchResponse
 // 将Base64编码的内容转换为对象的请求
 message ObjectConvertFromBase64Request
 {
-    string uuid = 1;                  // uuid
+    string bucket = 1;                //  bucket's uuid
     repeated Base64Source source = 2; // 源
 }
 
