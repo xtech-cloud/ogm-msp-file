@@ -61,6 +61,8 @@ type ObjectService interface {
 	Retract(ctx context.Context, in *ObjectRetractRequest, opts ...client.CallOption) (*UuidResponse, error)
 	// 将Base64编码的内容转换为对象
 	ConvertFromBase64(ctx context.Context, in *ObjectConvertFromBase64Request, opts ...client.CallOption) (*ObjectConvertFromBase64Response, error)
+	// 将Url地址转换为对象
+	ConvertFromUrl(ctx context.Context, in *ObjectConvertFromUrlRequest, opts ...client.CallOption) (*ObjectConvertFromUrlResponse, error)
 }
 
 type objectService struct {
@@ -185,6 +187,16 @@ func (c *objectService) ConvertFromBase64(ctx context.Context, in *ObjectConvert
 	return out, nil
 }
 
+func (c *objectService) ConvertFromUrl(ctx context.Context, in *ObjectConvertFromUrlRequest, opts ...client.CallOption) (*ObjectConvertFromUrlResponse, error) {
+	req := c.c.NewRequest(c.name, "Object.ConvertFromUrl", in)
+	out := new(ObjectConvertFromUrlResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // Server API for Object service
 
 type ObjectHandler interface {
@@ -213,6 +225,8 @@ type ObjectHandler interface {
 	Retract(context.Context, *ObjectRetractRequest, *UuidResponse) error
 	// 将Base64编码的内容转换为对象
 	ConvertFromBase64(context.Context, *ObjectConvertFromBase64Request, *ObjectConvertFromBase64Response) error
+	// 将Url地址转换为对象
+	ConvertFromUrl(context.Context, *ObjectConvertFromUrlRequest, *ObjectConvertFromUrlResponse) error
 }
 
 func RegisterObjectHandler(s server.Server, hdlr ObjectHandler, opts ...server.HandlerOption) error {
@@ -228,6 +242,7 @@ func RegisterObjectHandler(s server.Server, hdlr ObjectHandler, opts ...server.H
 		Preview(ctx context.Context, in *ObjectPreviewRequest, out *ObjectPreviewResponse) error
 		Retract(ctx context.Context, in *ObjectRetractRequest, out *UuidResponse) error
 		ConvertFromBase64(ctx context.Context, in *ObjectConvertFromBase64Request, out *ObjectConvertFromBase64Response) error
+		ConvertFromUrl(ctx context.Context, in *ObjectConvertFromUrlRequest, out *ObjectConvertFromUrlResponse) error
 	}
 	type Object struct {
 		object
@@ -282,4 +297,8 @@ func (h *objectHandler) Retract(ctx context.Context, in *ObjectRetractRequest, o
 
 func (h *objectHandler) ConvertFromBase64(ctx context.Context, in *ObjectConvertFromBase64Request, out *ObjectConvertFromBase64Response) error {
 	return h.ObjectHandler.ConvertFromBase64(ctx, in, out)
+}
+
+func (h *objectHandler) ConvertFromUrl(ctx context.Context, in *ObjectConvertFromUrlRequest, out *ObjectConvertFromUrlResponse) error {
+	return h.ObjectHandler.ConvertFromUrl(ctx, in, out)
 }

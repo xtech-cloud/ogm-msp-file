@@ -41,6 +41,8 @@ service Object
     rpc Retract(ObjectRetractRequest) returns (UuidResponse) { }
     // 将Base64编码的内容转换为对象
     rpc ConvertFromBase64(ObjectConvertFromBase64Request) returns (ObjectConvertFromBase64Response) { }
+    // 将Url地址转换为对象
+    rpc ConvertFromUrl(ObjectConvertFromUrlRequest) returns (ObjectConvertFromUrlResponse) { }
 }
 
 // 准备对象元数据的请求
@@ -215,6 +217,20 @@ message ObjectConvertFromBase64Request
 
 // 将Base64编码的内容转换为对象的回复
 message ObjectConvertFromBase64Response
+{
+    Status status = 1;           // 状态
+    repeated string failure = 2; // 转换失败的文件
+}
+
+// 将Url转换为对象的请求
+message ObjectConvertFromUrlRequest
+{
+    string bucket = 1;             //  bucket's uuid
+    repeated UrlSource source = 2; // 源
+}
+
+// 将Url转换为对象的回复
+message ObjectConvertFromUrlResponse
 {
     Status status = 1;           // 状态
     repeated string failure = 2; // 转换失败的文件

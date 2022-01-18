@@ -71,3 +71,13 @@ message Base64Source
     string uname = 2;    // 存储名
     string content = 3;  // base64编码的内容
 }
+
+// Url格式的源
+message UrlSource
+{
+    string filepath = 1; // 文件路径
+    string uname = 2;    // 存储名
+    string content = 3;  // url地址
+    string md5 = 4;      // Url对应的文件的MD5
+    int64 size = 5;      // Url对应的文件的大小
+}
