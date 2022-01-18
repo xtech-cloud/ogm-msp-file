@@ -26,6 +26,8 @@ service Bucket
     rpc ResetToken(BucketResetTokenRequest) returns (UuidResponse) { }
     // 生成清单
     rpc GenerateManifest(BucketGenerateManifestRequest) returns (BucketGenerateManifestResponse) { }
+    // 清空一个存储桶
+    rpc Clean(BucketCleanRequest) returns (UuidResponse) { }
 }
 
 // 创建存储桶的请求
@@ -140,4 +142,9 @@ message BucketGenerateManifestResponse
 {
     Status status = 1; // 状态
     string result = 2; // 生成结果
+}
+
+message BucketCleanRequest
+{
+    string uuid = 1; // uuid
 }
