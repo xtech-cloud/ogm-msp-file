@@ -39,6 +39,8 @@ service Object
     // 撤回一个对象
     // 撤回公开链接，对象的URL无值
     rpc Retract(ObjectRetractRequest) returns (UuidResponse) { }
+    // 将Base64编码的内容转换为对象
+    rpc ConvertFromBase64(ObjectConvertFromBase64Request) returns (ObjectConvertFromBase64Response) { }
 }
 
 // 准备对象元数据的请求
@@ -48,6 +50,7 @@ message ObjectPrepareRequest
     string uname = 2;  // 存储引擎中的唯一名
     uint64 size = 3;   // 对象大小
     int64 expiry = 4;  //令牌有效期
+    bool override = 5; // 覆盖已存在的对象
 }
 
 // 准备对象的回复
@@ -201,4 +204,18 @@ message ObjectSearchResponse
     Status status = 1;                // 状态
     uint64 total = 2;                 // 总数
     repeated ObjectEntity entity = 3; // 实体列表
+}
+
+// 将Base64编码的内容转换为对象的请求
+message ObjectConvertFromBase64Request
+{
+    string uuid = 1;                  // uuid
+    repeated Base64Source source = 2; // 源
+}
+
+// 将Base64编码的内容转换为对象的回复
+message ObjectConvertFromBase64Response
+{
+    Status status = 1;           // 状态
+    repeated string failure = 2; // 转换失败的文件
 }

@@ -59,6 +59,8 @@ type ObjectService interface {
 	// 撤回一个对象
 	// 撤回公开链接，对象的URL无值
 	Retract(ctx context.Context, in *ObjectRetractRequest, opts ...client.CallOption) (*UuidResponse, error)
+	// 将Base64编码的内容转换为对象
+	ConvertFromBase64(ctx context.Context, in *ObjectConvertFromBase64Request, opts ...client.CallOption) (*ObjectConvertFromBase64Response, error)
 }
 
 type objectService struct {
@@ -173,6 +175,16 @@ func (c *objectService) Retract(ctx context.Context, in *ObjectRetractRequest, o
 	return out, nil
 }
 
+func (c *objectService) ConvertFromBase64(ctx context.Context, in *ObjectConvertFromBase64Request, opts ...client.CallOption) (*ObjectConvertFromBase64Response, error) {
+	req := c.c.NewRequest(c.name, "Object.ConvertFromBase64", in)
+	out := new(ObjectConvertFromBase64Response)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // Server API for Object service
 
 type ObjectHandler interface {
@@ -199,6 +211,8 @@ type ObjectHandler interface {
 	// 撤回一个对象
 	// 撤回公开链接，对象的URL无值
 	Retract(context.Context, *ObjectRetractRequest, *UuidResponse) error
+	// 将Base64编码的内容转换为对象
+	ConvertFromBase64(context.Context, *ObjectConvertFromBase64Request, *ObjectConvertFromBase64Response) error
 }
 
 func RegisterObjectHandler(s server.Server, hdlr ObjectHandler, opts ...server.HandlerOption) error {
@@ -213,6 +227,7 @@ func RegisterObjectHandler(s server.Server, hdlr ObjectHandler, opts ...server.H
 		Publish(ctx context.Context, in *ObjectPublishRequest, out *ObjectPublishResponse) error
 		Preview(ctx context.Context, in *ObjectPreviewRequest, out *ObjectPreviewResponse) error
 		Retract(ctx context.Context, in *ObjectRetractRequest, out *UuidResponse) error
+		ConvertFromBase64(ctx context.Context, in *ObjectConvertFromBase64Request, out *ObjectConvertFromBase64Response) error
 	}
 	type Object struct {
 		object
@@ -263,4 +278,8 @@ func (h *objectHandler) Preview(ctx context.Context, in *ObjectPreviewRequest, o
 
 func (h *objectHandler) Retract(ctx context.Context, in *ObjectRetractRequest, out *UuidResponse) error {
 	return h.ObjectHandler.Retract(ctx, in, out)
+}
+
+func (h *objectHandler) ConvertFromBase64(ctx context.Context, in *ObjectConvertFromBase64Request, out *ObjectConvertFromBase64Response) error {
+	return h.ObjectHandler.ConvertFromBase64(ctx, in, out)
 }

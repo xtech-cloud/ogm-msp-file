@@ -63,3 +63,11 @@ message ObjectEntity
     string md5 = 5;      // MD5值
     string uname = 6;    // 存储名
 }
+
+// Base64格式的源
+message Base64Source
+{
+    string filepath = 1; // 文件路径
+    string uname = 2;    // 存储名
+    string content = 3;  // base64编码的内容
+}
