@@ -157,8 +157,8 @@ message ObjectGetResponse
 // 查找对象的请求
 message ObjectFindRequest
 {
-    string bucket = 1;   // 存储桶
-    string filepath = 2; // 文件路径
+    string bucket = 1; // 存储桶
+    string path = 2;   // 文件路径
 }
 
 // 查找对象的回复
