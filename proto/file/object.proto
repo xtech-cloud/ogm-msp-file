@@ -49,10 +49,11 @@ service Object
 message ObjectPrepareRequest
 {
     string bucket = 1; // 存储桶
-    string uname = 2;  // 存储引擎中的唯一名
-    uint64 size = 3;   // 对象大小
-    int64 expiry = 4;  //令牌有效期
-    bool override = 5; // 覆盖已存在的对象
+    string hash = 2;   // 如果存储桶的模式为hash, 使用此值作为存储引擎中的对象名
+    string path = 3;   // 如果存储桶的模式为path, 使用此值作为存储引擎中的对象名
+    uint64 size = 4;   // 对象大小
+    int64 expiry = 5;  // 令牌有效期
+    bool override = 6; // 覆盖存储引擎中已存在的对象, 仅path模式有效
 }
 
 // 准备对象的回复
@@ -68,9 +69,8 @@ message ObjectPrepareResponse
 message ObjectFlushRequest
 {
     string bucket = 1; // 存储桶(UUID)
-    string uname = 2;  // 存储引擎中的唯一名
-    string path = 3;   // 对象存储的路径
-    string md5 = 4;    // 对象的MD5值
+    string hash = 2;   // 对象的散列值
+    string path = 3;   // 对象的存储路径
 }
 
 // 发布对象的请求
