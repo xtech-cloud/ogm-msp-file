@@ -52,6 +52,7 @@ message BucketEntity
     string accessSecret = 10; // 存储引擎的访问Secret
     string url = 21;          // 存储引擎的外部访问地址
     string mode = 22;         // 存储桶的模式
+    string alias = 31;        // 别名
 }
 
 // 对象实体

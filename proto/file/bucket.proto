@@ -42,6 +42,7 @@ message BucketMakeRequest
     string accessSecret = 7; // 存储引擎的访问secret
     string url = 8;          // 存储引擎的外部访问地址
     string mode = 9;         // 存储模式，可选值为(hash,path),默认值为hash
+    string alias = 10;       // 别名
 }
 
 // 列举存储桶的回复
@@ -120,6 +121,7 @@ message BucketUpdateRequest
     string accessKey = 7;    // 存储引擎的访问key
     string accessSecret = 8; // 存储引擎的访问secret
     string url = 9;          // 存储引擎的外部访问地址
+    string alias = 10;       // 别名
 }
 
 // 重置存储桶的访问令牌
