@@ -97,7 +97,8 @@ message BucketSearchRequest
 {
     int64 offset = 1; // 偏移值
     int64 count = 2;  // 数量
-    string name = 3;  // name
+    string name = 3;  // 名称
+    string alias = 4; // 别名
 }
 
 // 模糊查找存储桶信息的回复
