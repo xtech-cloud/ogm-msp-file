@@ -212,7 +212,7 @@ message ObjectSearchResponse
 message ObjectConvertFromBase64Request
 {
     string bucket = 1;                //  bucket's uuid
-    Base64Source source = 2; // 源
+    repeated Base64Source source = 2; // 源
 }
 
 // 将Base64编码的内容转换为对象的回复
@@ -226,7 +226,7 @@ message ObjectConvertFromBase64Response
 message ObjectConvertFromUrlRequest
 {
     string bucket = 1;             //  bucket's uuid
-    UrlSource source = 2; // 源
+    repeated UrlSource source = 2; // 源
 }
 
 // 将Url转换为对象的回复
