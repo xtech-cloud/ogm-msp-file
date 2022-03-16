@@ -140,6 +140,7 @@ message BucketGenerateManifestRequest
     string saveAs = 5;           // 保存在桶中的文件名,如果不为空，回复中的result字段为清单地址，如果为空，回复中的result为清单内容
     repeated string include = 6; // 包含文件，支持通配符，空值时返回所有对象
     repeated string exclude = 7; // 排除文件，支持通配符，运算顺序在include之后
+    string prefix = 8;           // 路径前缀
 }
 
 message BucketGenerateManifestResponse
@@ -150,5 +151,6 @@ message BucketGenerateManifestResponse
 
 message BucketCleanRequest
 {
-    string uuid = 1; // uuid
+    string uuid = 1;   // uuid
+    string prefix = 2; // 路径前缀
 }
